@@ -30,7 +30,7 @@
                     <div id="map-canvas" style="height:350px;width:100%"></div>
 
                     <p>{{__('Può contattarci visitando i nostri uffici di Cortina d\'Ampezzo o Di San Vito di Cadore. Altrimenti potrete chiamarci negli orari d\'ufficio, altrimenti compilate la form qui sotto e vi ricontatteremo nel arco di 24 ore.')}}</p>
-                    <form data-form-type="contact" method="post" action="#" class="rd-mailform text-left offset-11">
+                    {!! Form::open(['url' => route('contatti.send'), 'class' => 'text-left offset-11']) !!}
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -41,7 +41,7 @@
                             <div class="col-sm-6 input-mod-1">
                                 <div class="form-group">
                                     <label for="phone" class="form-label">{{__('Telefono')}}</label>
-                                    <input id="phone" type="text" name="phone" required class="form-control">
+                                    <input id="phone" type="text" name="phone" class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12">
@@ -56,9 +56,17 @@
                                     <textarea id="contact-message" name="message" data-constraints="@Required" class="form-control"></textarea>
                                 </div>
                             </div>
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
+                                      <p style="display:inline-block; margin-top:-33px;margin-left:20px;">Letta l'informativa ai sensi dell’<a href="#">art. 13 Reg. nr. UE 679/2016</a>, presto il mio specifico consenso al trattamento dei dati forniti per le specifiche finalità ivi indicate</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-sushi btn-sm"><i class="fa fa-paper-plane"></i> {{__('Invia Richiesta Gratuita')}}</button>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
                 <div class="col-md-4 offset-7">
                     <div class="row row-mod-1 flow-offset-6 sidebar text-sm-center text-md-left">

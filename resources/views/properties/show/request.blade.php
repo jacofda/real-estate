@@ -21,6 +21,14 @@
             <textarea id="contact-message2" name="message" data-constraints="@Required"
             placeholder="{{__('Salve, vorrei avere maggiori informazioni riguardo all`immobile Rif.').$property->rif}}" class="form-control min-height"></textarea>
         </div>
+
+        <div class="form-group">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="1">
+              <p style="display:inline-block; margin-top:-24px;margin-left:20px;">Letta l'informativa ai sensi dell’<a href="#">art. 13 Reg. nr. UE 679/2016</a>, presto il mio specifico consenso al trattamento dei dati forniti per le specifiche finalità ivi indicate</p>
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-sushi btn-sm">{{__('Invia Richiesta')}}</button>
 
     {!! Form::close() !!}

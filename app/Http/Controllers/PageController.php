@@ -43,6 +43,24 @@ class PageController extends Controller
         return view('pages.contact');
     }
 
+    public function contattiSend()
+    {
+
+        if(!request('privacy'))
+        {
+            return back()->with('error', trans('Accettazione privacy obbligatoria'));
+        }
+
+        $this->validate(request(), [
+            'privacy' => 'required|acceptance'
+        ]);
+
+        dd(request()->input());
+
+        return back()->with('closing-message', 'Sent');
+    }
+
+
     public function privacy()
     {
         return view('pages.privacy');

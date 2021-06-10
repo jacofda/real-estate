@@ -100,6 +100,7 @@ Route::get('grid', [PropertyController::class, 'grid'])->name('grid');
 
 Route::get('contatti', [PageController::class, 'contatti'])->name('it.contatti');
 Route::get('contact', [PageController::class, 'contatti'])->name('en.contatti');
+Route::post('contact', [PageController::class, 'contattiSend'])->name('contatti.send');
 Route::get('privacy', [PageController::class, 'privacy'])->name('privacy');
 Route::get('mappa-del-sito', [PageController::class, 'sitemap'])->name('it.sitemap');
 Route::get('sitemap', [PageController::class, 'sitemap'])->name('en.sitemap');
