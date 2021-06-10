@@ -2,12 +2,10 @@
 
 namespace App\Mediatypes;
 
-class MediaProperty {
+class MediaPropertyFixer {
 
-	public function resizeAndSaveImage($file, $filename, $directory)
+	public function resizeAndSaveImage($img, $filename, $directory)
 	{
-        $img = \Image::make( $file->getRealPath() );
-
 		$watermark400 = \Image::make( public_path('watermark400.png') );
 		$watermark200 = \Image::make( public_path('watermark200.png') );
 

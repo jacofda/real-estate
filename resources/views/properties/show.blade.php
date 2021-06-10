@@ -82,8 +82,24 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-4">
-                    <div style="width:100%; height:300px; background:red"></div>
-                    {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21958.178192726933!2d12.124801567518773!3d46.53240795665743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47783435d247033f%3A0xdd3c30437b92e42b!2s32043%20Cortina%20d&#39;Ampezzo%2C%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1622807877550!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe> --}}
+                    {{-- <div style="width:100%; height:300px; background:red"></div> --}}
+                    @if($property->city->comune == "Cortina d'Ampezzo")
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d21958.178192726933!2d12.124801567518773!3d46.53240795665743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47783435d247033f%3A0xdd3c30437b92e42b!2s32043%20Cortina%20d&#39;Ampezzo%2C%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1622807877550!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    @elseif($property->city->comune == "Borca di Cadore")
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10998.45911130245!2d12.213718846842605!3d46.43651446739072!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4779b4fbc3ccf135%3A0xfae47f38eeec5016!2s32040%20Borca%20di%20Cadore%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1623335417705!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    @elseif($property->city->comune == "Ciabiana di Cadore")
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5504.212022993897!2d12.282827527917284!3d46.38712241706343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4779b136fc79526b%3A0xd265adb86a25b996!2s32040%20Cibiana%20di%20Cadore%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1623335499109!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    @elseif($property->city->comune == "Lozzo di Cadore")
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5494.201133366558!2d12.439508127927919!3d46.48632105361792!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4779c7af44534949%3A0xb1073f9d6ac50a45!2s32040%20Lozzo%20di%20Cadore%2C%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1623335559504!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    @elseif($property->city->comune == "Pieve di Cadore")
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11000.425902818499!2d12.367838491920288!3d46.42676910639988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4779b778448de791%3A0x349d8980f887a66d!2s32044%20Pieve%20di%20Cadore%2C%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1623335604275!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    @elseif($property->city->comune == "San Vito di Cadore")
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10992.746078372185!2d12.195949091936653!3d46.464813346096484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4779b538a882c99b%3A0x9720416696c33454!2s32046%20San%20Vito%20di%20Cadore%2C%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1623335672540!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    @elseif($property->city->comune == "Valle di Cadore")
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5501.162107352839!2d12.32811007792042!3d46.417361562967216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4779b7107047e125%3A0x9c24bbf3a4b4c063!2s32040%20Valle%20di%20Cadore%2C%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1623335777977!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    @elseif($property->city->comune == "Vodo Cadore")
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5500.988542017828!2d12.241738327920634!3d46.419081962734126!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4779b41551072fc3%3A0x32fba10bfbb4e70e!2s32040%20Vodo%20di%20Cadore%2C%20Province%20of%20Belluno!5e0!3m2!1sen!2sit!4v1623335826775!5m2!1sen!2sit" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    @endif
                     <br><br>
                     <div class="sidebar-module">
                         <h4 class="border-bottom">{{__('Condividi')}}</h4>

@@ -70,6 +70,29 @@ Route::get('make-images', function(){
 
 });
 
+use App\Mediatypes\MediaPropertyFixer;
+
+Route::get('water-images', function(){
+
+
+    $helper = new MediaPropertyFixer;
+
+    foreach(Property::whereBetween('id', [171,184])->get() as $property)
+    {
+        // $property = Property::slug('cortina-dampezzo-appartamento-cortina-dampezzo-via-del-castello')->first();
+        foreach($property->media()->img()->get() as $img)
+        {
+            // dd($property->slug_it);
+            $image = \Image::make( storage_path('app/public/properties/original/'.$img->filename) );
+            $helper->resizeAndSaveImage($image, $img->filename, 'properties');
+        }
+    }
+
+    return 'done';
+
+});
+
+
 
 Route::get('test', function(){
 

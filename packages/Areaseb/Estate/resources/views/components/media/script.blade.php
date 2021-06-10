@@ -18,7 +18,7 @@
             },
             init: function () {
                 this.on('queuecomplete', function () {
-                    //location.reload();
+                    location.reload();
                 });
             },
         };
