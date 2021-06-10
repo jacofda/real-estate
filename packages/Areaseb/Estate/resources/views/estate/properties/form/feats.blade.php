@@ -20,7 +20,7 @@
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label>IPE</label>
-                        {!! Form::number('ipe', null) !!}
+                        {!! Form::number('ipe', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
             </div>
@@ -90,6 +90,7 @@
     @include('estate::estate.properties.form.info')
     @include('estate::estate.properties.form.prices')
     @include('estate::estate.properties.form.extra')
+    
 
 </div>
 
@@ -98,7 +99,7 @@
 
 @push('scripts')
     <script>
-        
+
         $('select[name="heating"]').select2({placeholder: 'Riscaldamento', width:'100%', tags: true, allowClear:true});
         $('select[name="energy_class"]').select2({placeholder: 'Classe', width:'100%'});
     </script>

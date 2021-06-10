@@ -2,12 +2,14 @@
     <div class="rd-navbar-top-panel-wrap">
         <dl class="dl-horizontal-mod-1 login">
             @auth
-                <dt>
-                    <span class="mdi mdi-login icon-xxs-mod-2"></span>
-                </dt>
-                <dd>
-                    <a href="{{route('home')}}" class="text-sushi">ADMIN</a>
-                </dd>
+                @if(auth()->user()->hasRole('super'))
+                    <dt>
+                        <span class="mdi mdi-login icon-xxs-mod-2"></span>
+                    </dt>
+                    <dd>
+                        <a href="{{route('dashboard')}}" class="text-sushi">ADMIN</a>
+                    </dd>
+                @endif
             @endauth
         </dl>
         <div class="top-panel-inner">
@@ -39,12 +41,7 @@
             </address>
         </div>
         <ul class="list-inline">
-            <li>
-                <a href="#">IT</a>
-            </li>
-            <li>
-                <a href="#">EN</a>
-            </li>
+            @include('layouts.elements.lang')
         </ul>
         {{-- <div class="btn-group">
             <a href="submit-property.html" class="btn btn-sm btn-primary">Submit Property</a>

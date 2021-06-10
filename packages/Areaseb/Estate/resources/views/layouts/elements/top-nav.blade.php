@@ -18,8 +18,6 @@
                     if(isp.value != "")
                     {
                         document.getElementById('spg').classList.remove("d-none");
-
-                        console.log(baseURL);
                         let data = {};
                         data._token = token;
                         data.search = document.getElementById("sp").value;
@@ -92,7 +90,11 @@
 <ul class="navbar-nav ml-auto">
 
     {{-- @include('estate::layouts.elements.notifications') --}}
-
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('welcome')}}" title="torna al sito">
+            <i class="fas fa-globe"></i>
+        </a>
+    </li>
     <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
             {{$user->fullname}}

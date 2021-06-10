@@ -40,6 +40,10 @@ class Media extends Model
         return asset('storage/'.$this->directory.'/thumb/'.$this->filename);
     }
 
+    public function getPageAttribute()
+    {
+        return asset('storage/'.$this->directory.'/page/'.$this->filename);
+    }
 
 //model helpers
     public function getDirectoryAttribute()
@@ -121,26 +125,26 @@ class Media extends Model
             $ext = strtolower(end($arr));
             if($this->word)
             {
-                return '<i class="far fa-fw fa-file-word"></i>';
+                return '<i class="far fa-2x fa-fw fa-file-word"></i>';
             }
             elseif(strpos($ext, 'pdf') !== false)
             {
-                return '<i class="far fa-fw fa-file-pdf"></i>';
+                return '<i class="far fa-2x fa-fw fa-file-pdf"></i>';
             }
             elseif($this->excel)
             {
-                return '<i class="far fa-fw fa-file-excel"></i>';
+                return '<i class="far fa-2x fa-fw fa-file-excel"></i>';
             }
             elseif($this->archive)
             {
-                return '<i class="far fa-file-archive"></i>';
+                return '<i class="far fa-2x fa-file-archive"></i>';
             }
             else
             {
-                return '<i class="far fa-fw fa-file-alt"></i>';
+                return '<i class="far fa-2x fa-fw fa-file-alt"></i>';
             }
         }
-        return '<i class="far fa-fw fa-image"></i>';
+        return '<i class="far fa-2x fa-fw fa-image"></i>';
     }
 
 // SCOPES
@@ -159,6 +163,12 @@ class Media extends Model
     {
         $query = $query->where('mime', 'image');
     }
+
+    public function scopeLandscape($query)
+    {
+        $query = $query->whereRaw('width > height');
+    }
+
 
 //FUNCTIONS
 //check if is image with valid extension (request->file)

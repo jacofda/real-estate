@@ -100,17 +100,10 @@
     </a>
 </li>
 
-<li class="nav-header text-uppercase">WEB</li>
 <li class="nav-item">
-    <a href="#" class="nav-link" id="menu-cal">
+    <a href="{{route('slides.index')}}" class="nav-link" id="menu-cal">
         <i class="nav-icon far fa-images"></i>
-        <p>Slide</p>
-    </a>
-</li>
-<li class="nav-item">
-    <a href="#" class="nav-link" id="menu-cal">
-        <i class="nav-icon fas fa-highlighter"></i>
-        <p>In Evidenza</p>
+        <p>Slides home</p>
     </a>
 </li>
 

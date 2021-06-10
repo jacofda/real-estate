@@ -77,10 +77,10 @@
         <div class="form-group">
             <select class="custom-select" name="floor">
                 <option></option>
-                <option>Terra</option>
-                <option>Primo</option>
-                <option>Secondo</option>
-                <option>Terzo</option>
+                <option value="0">Terra</option>
+                <option value="1">Primo</option>
+                <option value="2">Secondo</option>
+                <option value="3">Terzo</option>
             </select>
         </div>
     </div>
@@ -88,15 +88,33 @@
 
     <div class="col-sm-2">
         <div class="form-group">
-            <select class="custom-select" name="state">
+            {!!Form::select('state',[''=>'']+\Areaseb\Estate\Models\Property::uniqueState(), request('state'))!!}
+        </div>
+    </div>
+
+    <div class="col-sm-2">
+        <div class="form-group">
+            <select class="custom-select" name="user_id">
                 <option></option>
 
             </select>
         </div>
     </div>
 
+    <div class="col-sm-2">
+        <div class="form-group">
+            <select class="custom-select" name="approved">
+                <option></option>
+                <option @if(request('approved') == 'null') selected @endif value="null">Da Verificare</option>
+                <option @if(request('approved') == '1') selected @endif value="1">Approvati</option>
+                <option @if(request('approved') == '0') selected @endif value="0">Scartati</option>
+            </select>
+        </div>
+    </div>
 
-    <div class="col-sm-2 offset-sm-6 text-right" style="float:right">
+
+
+    <div class="col-sm-2 offset-sm-2 text-right" style="float:right">
         <div class="form-group">
             <a class="btn btn-primary" href="{{route('properties.create')}}"><i class="fa fa-plus"></i> Proprietà</a>
         </div>
@@ -146,6 +164,8 @@
     // $('select[name="sector"]').select2({placeholder: 'Categorie', width:'100%'});
     $('select[name="floor"]').select2({placeholder: 'Piano', width:'100%',minimumResultsForSearch: -1});
     $('select[name="state"]').select2({placeholder: 'Stato', width:'100%',minimumResultsForSearch: -1});
+    $('select[name="user_id"]').select2({placeholder: 'Utenti', width:'100%',minimumResultsForSearch: -1});
+    $('select[name="approved"]').select2({placeholder: 'Status', width:'100%',minimumResultsForSearch: -1});
 
     $('select.custom-select').on('change', function(){
         $('#formFilter').submit();

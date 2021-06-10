@@ -51,6 +51,7 @@
                     </td>
                     <td>
                         {!! Form::open(['method' => 'delete', 'url' => route('properties.destroy', $property->id), 'id' => "form-".$property->id]) !!}
+                            
                             <a href="{{route('properties.edit', $property->id)}}" class="btn btn-warning btn-icon btn-sm"><i class="fa fa-edit"></i></a>
                             <a href="{{route('properties.media', $property->id)}}" class="btn btn-info btn-icon btn-sm"><i class="fa fa-image"></i></a>
                             <button type="submit" id="{{$property->id}}" class="btn btn-danger btn-icon btn-sm delete"><i class="fa fa-trash"></i></button>

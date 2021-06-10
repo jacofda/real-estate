@@ -7,7 +7,6 @@
         </div>
         <div class="card-body">
 
-
             <div class="row">
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -23,7 +22,7 @@
                         @php
                             if(isset($property))
                             {
-                                $type = $property->type;
+                                $type = $property->type_id;
                             }
                             else
                             {
@@ -61,11 +60,25 @@
             </div>
 
             @isset($property)
-                <div class="form-group">
-                    <label>Slug IT</label>
-                    {!! Form::text('slug_it', null, ['class' => 'form-control']) !!}
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Slug IT</label>
+                            {!! Form::text('slug_it', null, ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    @if( is_null($property->approved) || ($property->approved === 0) )
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Approvato</label>
+                                {!! Form::select('approved', [''=>'Da approvare', '0' => 'Scartato', '1' => 'Approvato'], null, ['class' => 'form-control']) !!}
+                                <small><a href="{{route('clients.show', $property->user->contact->client->id)}}" target="_BLANK">{{$property->user->contact->client->rag_soc}}</a></small>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @endisset
+
 
             <div class="form-group">
                 <label>Descrizione Corta*</label>
@@ -150,6 +163,7 @@
     @include('estate::estate.properties.form.trans')
     @include('estate::estate.properties.form.registry')
     @include('estate::estate.properties.form.pois')
+    @include('estate::estate.properties.form.homepage')
 </div>
 
 

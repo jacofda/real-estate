@@ -5,6 +5,7 @@ use Areaseb\Estate\Http\Controllers\CalendarController;
 use Areaseb\Estate\Http\Controllers\ClientController;
 use Areaseb\Estate\Http\Controllers\ContactController;
 use Areaseb\Estate\Http\Controllers\CostController;
+use Areaseb\Estate\Http\Controllers\DashboardController;
 use Areaseb\Estate\Http\Controllers\EditorController;
 use Areaseb\Estate\Http\Controllers\EventController;
 use Areaseb\Estate\Http\Controllers\ExemptionController;
@@ -23,8 +24,8 @@ use Areaseb\Estate\Http\Controllers\PdfController;
 use Areaseb\Estate\Http\Controllers\ProductController;
 use Areaseb\Estate\Http\Controllers\ReportController;
 use Areaseb\Estate\Http\Controllers\RoleController;
-use Areaseb\Estate\Http\Controllers\StatController;
 use Areaseb\Estate\Http\Controllers\SettingController;
+use Areaseb\Estate\Http\Controllers\StatController;
 use Areaseb\Estate\Http\Controllers\UserController;
 use Areaseb\Estate\Http\Controllers\TemplateController;
 
@@ -130,8 +131,7 @@ Route::get('notifications/{notification}', [NotificationController::class, 'show
 Route::post('notifications/{notification}', [NotificationController::class, 'markAsRead'])->name('notifications.read');
 Route::delete('notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 
-Route::get('dashboard', [PagesController::class, 'home'])->name('home');
-Route::post('logout', [PagesController::class, 'logout'])->name('logout');
+Route::get('dashboard', [PagesController::class, 'home'])->name('dashboard');
 
 Route::get('lists', [NewsletterListController::class, 'index'])->name('lists.index');
 Route::post('lists', [NewsletterListController::class, 'store'])->name('lists.store');
@@ -195,6 +195,8 @@ Route::group(['prefix' => 'api/media'], function () {
     Route::delete('delete',[MediaController::class, 'delete'])->name('media.delete');
 });
 
+
+
 //PROPERTIES
 use Areaseb\Estate\Http\Controllers\{PropertyController, PropertyHelperController, RequestController, FeatureController};
 use Areaseb\Estate\Http\Controllers\{BookingController, OwnershipController, TagController, ViewController};
@@ -224,7 +226,6 @@ Route::resource('ownerships', OwnershipController::class);
 Route::resource('requests', RequestController::class);
 Route::resource('offers', OfferController::class);
 
-
 Route::resource('views', ViewController::class);
 Route::get('bookings/{booking}/media', [BookingController::class, 'media'])->name('bookings.media');
 Route::resource('bookings', BookingController::class);
@@ -233,3 +234,7 @@ Route::resource('pois', PoiController::class);
 
 Route::post('create-property-field', [PropertyHelperController::class, 'createField']);
 Route::post('update-property-field', [PropertyHelperController::class, 'updateField']);
+
+Route::get('slides', [DashboardController::class, 'slides'])->name('slides.index');
+Route::post('slides', [DashboardController::class, 'slideUpdate'])->name('slides.store');
+Route::post('slides-delete', [DashboardController::class, 'slideDestroy'])->name('slides.destroy');

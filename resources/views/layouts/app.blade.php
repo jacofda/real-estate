@@ -10,6 +10,10 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato:400,700,900,400italic">
     @yield('meta')
     <link rel="stylesheet" href="{{asset('theme/css/style.css')}}">
+
+    <link rel="stylesheet" href="{{asset('theme/css/mystyle.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    @yield('css')
 </head>
 <body>
 
@@ -19,10 +23,14 @@
         @yield('title')
         @yield('search')
         @yield('content')
+        @include('layouts.elements.footer')
     </div>
 
     <script src="{{asset('theme/js/core.min.js')}}"></script>
     <script src="{{asset('theme/js/script.js')}}"></script>
-
+    <script src="{{asset('theme/js/sw2.min.js')}}"></script>
+    @include('elements.session')
+    @yield('scripts')
+    @stack('scripts')
 </body>
 </html>

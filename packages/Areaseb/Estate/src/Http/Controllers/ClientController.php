@@ -337,7 +337,20 @@ class ClientController extends Controller
         $requests = $client->requests()->with('client', 'property')->get();
         $ownerships = $client->ownerships()->with('client', 'property')->get();
         $views = $client->views()->with('client', 'property')->get();
-        $collection = $collection->merge($requests)->merge($ownerships)->merge($logs)->merge($views);
+
+        $properties = collect();
+        if($client->primary->user_id)
+        {
+            if(auth()->user()->properties()->exists())
+            {
+                if(auth()->user()->properties)
+                {
+                    $properties = auth()->user()->properties;
+                }
+            }
+        }
+
+        $collection = $collection->merge($requests)->merge($ownerships)->merge($logs)->merge($views)->merge($properties);
         return $collection->sortByDesc('created_at');
     }
 

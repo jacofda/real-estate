@@ -13,15 +13,6 @@ class WebsiteController extends Controller
         return view('welcome');
     }
 
-    public function vendita()
-    {
-
-        $query = Property::filter();
-        $properties = $query->paginate(9);
-
-        return view('properties.index-vendita', compact('properties'));
-    }
-
     public function affitto()
     {
         return view('properties.index-affitto', compact('properties'));

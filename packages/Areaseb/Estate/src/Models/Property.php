@@ -4,6 +4,8 @@ namespace Areaseb\Estate\Models;
 
 use Areaseb\Estate\Models\{Calendar, City, Primitive};
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Builder;
+use App\User;
 
 class Property extends Primitive
 {
@@ -58,16 +60,42 @@ class Property extends Primitive
         return $this->belongsToMany(Poi::class, 'property_poi', 'property_id', 'poi_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
+
+//SCOPE
+    public function scopeVendita($query)
+    {
+        $query = $query->whereIn('contract_id', [1,3])->orWhere('contract_id', 3);
+    }
+
+    public function scopeAffitto($query)
+    {
+        $query = $query->whereIn('contract_id', [2,3])->orWhere('contract_id', 3);
+    }
+
+    public function scopeSlug($query, $slug)
+    {
+        if($locale = app()->getLocale() == 'it')
+        {
+            $query = $query->where('slug_it', $slug);
+        }
+        else
+        {
+            $query = $query->where('slug_en', $slug);
+        }
+
+    }
 
 
 
 //GETTER
-
-
     public static function makeSlug($property)
     {
-        $arr[] = ($property->contract) ? $property->contract->name_it : null;
+        // $arr[] = ($property->contract) ? $property->contract->name_it : null;
         $arr[] = ($property->city) ? $property->city->comune : null;
         $arr[] = ($property->tag) ? $property->tag->name_it : null;
         $arr[] = $property->name_it;
@@ -77,15 +105,15 @@ class Property extends Primitive
         {
             if($value)
             {
-                $str .= str_slug($value).'/';
+                $str .= str_slug($value).'-';
             }
         }
-        $str = rtrim($str, '/');
+        $str = rtrim($str, '-');
         $property->update(['slug_it' => $str]);
 
 
 
-        $arr_en[] = ($property->contract) ? $property->contract->name_en : null;
+        // $arr_en[] = ($property->contract) ? $property->contract->name_en : null;
         $arr_en[] = ($property->city) ? $property->city->comune : null;
         $arr_en[] = ($property->tag) ? $property->tag->name_en : null;
         $arr_en[] = $property->name_en ?? $property->name_it ;
@@ -95,25 +123,63 @@ class Property extends Primitive
         {
             if($value_en)
             {
-                $str_en .= str_slug($value).'/';
+                $str_en .= str_slug($value).'-';
             }
         }
-        $str_en = rtrim($str_en, '/');
+        $str_en = rtrim($str_en, '-');
         $property->update(['slug_en' => $str_en]);
     }
+
+
+    public function getRelatedAttribute()
+    {
+        return $this->tag->properties()->where('id', '!=', $this->id)->where('contract_id', $this->contract_id)->take(6)->get();
+    }
+
 
     public function getNameAttribute()
     {
         $locale = app()->getLocale();
         $name = 'name_'.$locale;
-        return $this->$name;
+        if($this->$name)
+        {
+            return $this->$name;
+        }
+        return $this->name_it;
     }
+
+    public function getDescriptionAttribute()
+    {
+        $locale = app()->getLocale();
+        $name = 'desc_'.$locale;
+        if($this->$name)
+        {
+            return $this->$name;
+        }
+        return $this->desc_it;
+    }
+
+    public function getShortDescAttribute()
+    {
+        $locale = app()->getLocale();
+        $name = 'short_desc_'.$locale;
+        if($this->$name)
+        {
+            return $this->$name;
+        }
+        return $this->short_desc_it;
+    }
+
 
     public function getUrlAttribute()
     {
         $locale = app()->getLocale();
         $slug = 'slug_'.$locale;
-        return $this->$slug;
+
+        $lang_definer = ($locale == 'it') ? 'immobile/' : 'property/';
+        return url($lang_definer . $this->$slug);
+
+        // return ($locale == 'it') ? 'immobile/' . $this->$slug : 'property/' . $this->$slug;
     }
 
 
@@ -129,10 +195,16 @@ class Property extends Primitive
         return null;
     }
 
+    public function getPrezzoVenditaAttribute()
+    {
+        if($this->sell_price)
+        {
+            return number_format($this->sell_price, 2, ',', '.');
+        }
+        return null;
+    }
+
 //STATIC
-
-
-
     public static function uniqueState()
     {
         return self::distinct('state')->pluck('state', 'state')->toArray();
@@ -179,8 +251,7 @@ class Property extends Primitive
     }
 
 
-
-//GETTER
+//IMG GETTER
 
     public function getFirstImgAttribute()
     {
@@ -200,8 +271,6 @@ class Property extends Primitive
         return false;
     }
 
-
-
     public function getThumbAttribute()
     {
         if($this->first_img)
@@ -211,6 +280,25 @@ class Property extends Primitive
         return false;
     }
 
+    public function getPageAttribute()
+    {
+        if($this->first_img)
+        {
+            return asset('storage/properties/page/'.$this->first_img);
+        }
+        return false;
+    }
+
+    public function getFullAttribute()
+    {
+        if($this->first_img)
+        {
+            return asset('storage/properties/full/'.$this->first_img);
+        }
+        return false;
+    }
+
+
 
 
 
@@ -218,8 +306,15 @@ class Property extends Primitive
     public static function filter()
     {
 
-
         $query = Property::with('tag', 'type', 'city', 'media', 'contract', 'requests');
+
+        if(request('feats'))
+        {
+            $feats = request('feats');
+            $query = $query->whereHas('feats', function($q) use($feats) {
+                            $q->whereIn('id', $feats);
+                        });
+        }
 
         if(request('city_id'))
         {
@@ -260,6 +355,36 @@ class Property extends Primitive
         {
             $query = $query->where('surface', '<=', request('max_mq'));
         }
+
+        if(request('n_bathrooms'))
+        {
+            $query = $query->where('n_bathrooms', '<=', request('n_bathrooms'));
+        }
+
+        if(request('n_bedrooms'))
+        {
+            $query = $query->where('n_bedrooms', '<=', request('n_bedrooms'));
+        }
+
+        if(request('user_id'))
+        {
+            $query = $query->where('user_id', request('user_id'));
+        }
+
+        if(request('approved') == 'null')
+        {
+            $query = $query->whereNull('approved');
+        }
+        elseif(request('approved') == '1')
+        {
+            $query = $query->where('approved', 1);
+        }
+        elseif(request('approved') == '0')
+        {
+            $query = $query->where('approved', 0);
+        }
+
+
 
         return $query;
 

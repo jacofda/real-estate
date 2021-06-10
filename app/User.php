@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Areaseb\Estate\Models\{Calendar, Contact, Event};
+use Areaseb\Estate\Models\{Calendar, Contact, Event, Property};
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -45,6 +45,12 @@ class User extends Authenticatable
             return $this->hasOne(\Areaseb\Agents\Models\Agent::class);
         }
         return false;
+    }
+
+
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
     }
 
 

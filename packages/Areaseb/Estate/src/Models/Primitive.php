@@ -51,6 +51,10 @@ class Primitive extends Model
         {
             return 'Nota';
         }
+        elseif($this->class == 'Property')
+        {
+            return 'Immobile';
+        }
         return $this->class;
     }
 
@@ -192,4 +196,15 @@ class Primitive extends Model
         return $query->whereDate('created_at', '>=', Carbon::today()->subDays( $days ) );
     }
 
+//IMAGES
+
+    public function getDisplayAttribute()
+    {
+        $first = $this->media()->img()->landscape()->first();
+        if($first)
+        {
+            return asset('storage/properties/display/'.$first->filename);
+        }
+        return 'https://dummyimage.com/390x285/000000/fff.jpg&text=coming+soon';
+    }
 }

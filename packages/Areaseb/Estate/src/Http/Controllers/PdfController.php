@@ -160,7 +160,7 @@ class PdfController extends Controller
         return true;
     }
 
-    private function getTitle($xml = null, $model)
+    private function getTitle($xml = null, $model = null)
     {
         if($model->class == 'Invoice')
         {

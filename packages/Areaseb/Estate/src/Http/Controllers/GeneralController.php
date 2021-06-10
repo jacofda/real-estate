@@ -23,7 +23,6 @@ class GeneralController extends Controller
             }
             return 'done';
         }
-
         return 'not found';
     }
 
@@ -111,6 +110,7 @@ class GeneralController extends Controller
         $arr = City::where('provincia', $province)->where('italia', true)->pluck('comune', 'id')->toArray();
         return City::select2Mutate($arr);
     }
+
 
 
 }

@@ -1,0 +1,9 @@
+@if(session('message'))
+<script>
+    Swal.fire(
+        '',
+        '{{session('message')}}',
+        'success'
+    )
+</script>
+@endif

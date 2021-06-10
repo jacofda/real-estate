@@ -128,7 +128,26 @@ class PropertyController extends Controller
             'rent_period' => $request->rent_period,
             'rent_price' => $request->rent_price,
             'sell_price' => $request->sell_price,
+            'highlighted' => $request->highlighted,
+            'discounted' => $request->discounted
         ]);
+
+
+        if(intval($request->highlighted))
+        {
+            if( Property::whereNotNull('highlighted')->count() > 6)
+            {
+                Property::whereNotNull('highlighted')->orderBy('updated_at', 'ASC')->first()->update(['highlighted' => null]);
+            }
+        }
+
+        if(intval($request->discounted))
+        {
+            if( Property::whereNotNull('discounted')->count() > 6)
+            {
+                Property::whereNotNull('discounted')->orderBy('updated_at', 'ASC')->first()->update(['discounted' => null]);
+            }
+        }
 
         $property->feats()->sync($request->feats);
 
@@ -190,9 +209,6 @@ class PropertyController extends Controller
 
     public function update(Request $request, Property $property)
     {
-
-//return $request->input();
-
         $this->validate(request(),[
             'name_it' => 'required',
             'desc_it' => 'required',
@@ -253,7 +269,26 @@ class PropertyController extends Controller
             'rent_period' => $request->rent_period,
             'rent_price' => $request->rent_price,
             'sell_price' => $request->sell_price,
+            'highlighted' => $request->highlighted,
+            'discounted' => $request->discounted
         ]);
+
+        if(intval($request->highlighted))
+        {
+            if( Property::whereNotNull('highlighted')->count() > 6)
+            {
+                Property::whereNotNull('highlighted')->orderBy('updated_at', 'ASC')->first()->update(['highlighted' => null]);
+            }
+        }
+
+        if(intval($request->discounted))
+        {
+            if( Property::whereNotNull('discounted')->count() > 6)
+            {
+                Property::whereNotNull('discounted')->orderBy('updated_at', 'ASC')->first()->update(['discounted' => null]);
+            }
+        }
+
 
         $property->feats()->sync($request->feats);
 
