@@ -11,7 +11,9 @@
 
 @section('content')
 
-    @include('properties.index.search', ['url' => route(app()->getLocale().'.immobili'), 'contracts' => [''=>__('Qualsiasi'), 1=>__('Vendita'), 0 => __('Affitto')]])
+    {{-- @include('properties.index.search', ['url' => route(app()->getLocale().'.immobili'), 'contracts' => [''=>__('Qualsiasi'), 1=>__('Vendita'), 0 => __('Affitto')]]) --}}
+
+    @include('properties.index.search-home', ['url' => route(app()->getLocale().'.immobili'), 'contracts' => [''=>__('Qualsiasi'), 1=>__('Vendita'), 0 => __('Affitto')]])
 
     @include('elements.home.categories')
 

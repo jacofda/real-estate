@@ -13,7 +13,7 @@ class PageController extends Controller
     {
         session()->put('locale', $request->locale);
 
-        $route =  $request->route;
+        $route = $request->route;
 
         if(strpos($request->route, 'it.') !== false)
         {
@@ -76,6 +76,15 @@ class PageController extends Controller
         return view('pages.terms');
     }
 
+    public function agency()
+    {
+        return view('pages.agency');
+    }
+
+    public function subscribe()
+    {
+        return view('pages.subscribe');
+    }
 
 
 }

@@ -1,7 +1,7 @@
 <div class="rd-navbar-nav-wrap">
     <ul class="rd-navbar-nav">
         <li><a href="{{route('welcome')}}">Home</a></li>
-        <li><a href="#">{{__('Chi Siamo')}}</a></li>
+        <li><a href="{{route(app()->getLocale().'.agenzia')}}">{{__("L'agenzia")}}</a></li>
         <li>
             <a href="{{route(app()->getLocale().'.vendita')}}">{{__('Vendita')}}</a>
         </li>
@@ -27,11 +27,7 @@
                     </dd>
                 </dl>
                 <dl class="dl-horizontal-mod-1">
-                    {{-- <dt>
-                        <span class=""></span>
-                    </dt> --}}
                     <dd>
-
                             @if(app()->getLocale() == 'it')
                                 <a href="#" class="slangM" data-locale="en">
                                     <span><img src="{{asset('theme/en.svg')}}" style="width:20px;"/> English</span>
@@ -40,7 +36,7 @@
 
                             @if(app()->getLocale() == 'en')
                                 <a href="#" class="slangM" data-locale="it">
-                                    <span><img src="{{asset('theme/en.svg')}}" style="width:20px;"/> Italiano</span>
+                                    <span><img src="{{asset('theme/it.svg')}}" style="width:20px;"/> Italiano</span>
                                 </a>
                             @endif
 
@@ -48,9 +44,10 @@
                         <form id="lang-form-m" action="{{ url('switch-locale') }}" method="POST" style="display: none;">
                             @csrf
                             <input name="locale" value="" id="sl-locale-m">
+                            <input name="route" value="{{\Route::currentRouteName()}}" id="sl-locale-m">
                         </form>
 
-                        @push('scripts')
+
                             <script>
                                 let elementsM = document.getElementsByClassName("slangM");
 
@@ -64,7 +61,7 @@
                                     element.addEventListener('click', myFunctionM);
                                 });
                             </script>
-                        @endpush
+
                     </dd>
                 </dl>
                 <div class="top-panel-inner">

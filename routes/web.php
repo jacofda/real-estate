@@ -144,6 +144,12 @@ Route::get('sitemap', [PageController::class, 'sitemap'])->name('en.sitemap');
 Route::get('termini-e-condizioni', [PageController::class, 'terms'])->name('it.terms');
 Route::get('terms-and-conditions', [PageController::class, 'terms'])->name('en.terms');
 
+Route::get('agenzia', [PageController::class, 'agency'])->name('it.agenzia');
+Route::get('agancy', [PageController::class, 'agency'])->name('en.agenzia');
+
+Route::get('iscrizione', [PageController::class, 'subscribe'])->name('it.iscrizione');
+Route::get('subscription', [PageController::class, 'subscribe'])->name('en.iscrizione');
+
 // Auth::routes();
 //
 // Route::get('/home', 'HomeController@index')->name('home');
