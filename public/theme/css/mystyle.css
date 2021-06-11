@@ -85,7 +85,7 @@
 
 @media(min-width: 768px){
     .rd-navbar-panel{margin-top:-16px;}
-    .rd-navbar-panel img{max-width:230px; max-height: none; width:100%;}
+    .rd-navbar-panel img{max-width:200px; max-height: none; width:100%;}
 }
 
 .rd-navbar-fullwidth.rd-navbar--is-stuck .rd-navbar-panel {

@@ -5,7 +5,7 @@
                 <div class="col-xs-12 col-sm-6 col-lg-3">
                     <div class="rd-navbar-brand">
                         <a href="{{route('welcome')}}" class="brand-name">
-                            <img src="{{asset('theme/images/logo.jpg')}}" alt="{{config('app.name')}}" class="mb-2">
+                            <img src="{{asset('theme/images/Logo-bianco-footer.jpg')}}" alt="{{config('app.name')}}" class="mb-2">
                         </a>
                     </div>
                     {{-- <p>We believe in Simple, Creative &amp; Flexible Design Standards.</p> --}}

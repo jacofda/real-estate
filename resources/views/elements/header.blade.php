@@ -8,7 +8,7 @@
                 </button>
                 <div class="rd-navbar-brand">
                     <a href="{{route('welcome')}}" class="brand-name">
-                        <img src="{{asset('theme/images/logo.jpg')}}" alt="{{config('app.name')}}">
+                        <img src="{{asset('theme/images/Logo-Cortinese-200x64.png')}}" alt="{{config('app.name')}}">
                     </a>
                 </div>
             </div>

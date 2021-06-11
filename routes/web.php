@@ -20,8 +20,6 @@ use App\Http\Controllers\OverrideController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\WebsiteController;
 
-
-
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ForgotPasswordController};
 
 
@@ -48,6 +46,22 @@ Route::get('unsubscribe', [ReportController::class, 'unsubscribe']);
 Route::get('track', [ReportController::class, 'track']);
 
 Route::get('register-lead', [ReportController::class, 'registerLead']);
+
+
+Route::get('test-email', function(){
+
+    $name = "G G";
+    $phone = '123456789';
+    $email = 'a@a.a';
+    $request = 'CCIIAAOO';
+
+
+    return (new \App\Mail\Contact($name, $phone, $email, $request))->render();
+
+    \Mail::send(new \App\Mail\Contact($name, $phone, $email, $request));
+    return 'done';
+
+});
 
 
 use Areaseb\Estate\Models\{Property, Tag};
