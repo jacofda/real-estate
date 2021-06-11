@@ -2,7 +2,7 @@
     <div data-height="" data-min-height="600px" class="swiper-container swiper-slider">
         <div class="swiper-wrapper">
             @foreach(\Areaseb\Estate\Models\Property::whereNotNull('slide')->orderBy('slide', 'ASC')->get() as $slide)
-                <div data-slide-bg="{{$slide->full}}" class="swiper-slide">
+                <div data-slide-bg="{{$slide->original}}" class="swiper-slide">
                     <div class="swiper-slide-caption">
                         <div class="container">
                             <div data-caption-animate="fadeInDown" class="swiper-caption-wrap">
