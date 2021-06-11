@@ -65,7 +65,7 @@
 
             <div class="form-group">
                 <label>Tipo</label>
-                {!! Form::select('clients[]', $clients , $clientsSelected, [
+                {!! Form::select('type_id', [1=>'Lead',2=>'Prospect',3=>'Client'] , null, [
                     'class' => 'form-control select2bs4',
                     'multiple' => 'multiple',
                     'data-placeholder' => 'Seleziona almeno una tipologia di cliente',
@@ -84,7 +84,7 @@
 
             <div class="form-group">
                 <label>Associa ad un'azienda</label>
-                {!! Form::select('client_id', $clients, $element->contact->client_id ?? null, [
+                {!! Form::select('client_id', $companies, $element->contact->client_id ?? null, [
                     'class' => 'form-control select2bs4',
                     'data-placeholder' => "Seleziona un'azienda",
                     'style' => 'width:100%']) !!}

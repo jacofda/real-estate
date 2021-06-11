@@ -34,12 +34,10 @@ class UserController extends Controller
         $provinces = City::uniqueProvinces();
         $countries = Country::listCountries();
         $companies[''] = '';
-        $companies += Company::pluck('rag_soc', 'id')->toArray();
+        $companies += Client::pluck('rag_soc', 'id')->toArray();
 
-        $clients = Client::contact()->pluck('nome', 'id')->toArray();
-        $clientsSelected = [];
 
-        return view('estate::core.users.create', compact('roles', 'provinces', 'countries', 'companies', 'clients', 'clientsSelected'));
+        return view('estate::core.users.create', compact('roles', 'provinces', 'countries', 'companies'));
     }
 
     public function store()

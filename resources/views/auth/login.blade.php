@@ -10,12 +10,17 @@
                 </div>
             </div>
             <hr>
-            <div class="row">
+            <div class="row" style="margin-top:10px;">
+                <div class="col-xs-12">
+                    <img src="{{asset('theme/images/logo.png')}}" style="max-width:220px; text-align:center;margin-left:auto;margin-right:auto;display:block;"/>
+                </div>
+            </div>
+            <div class="row" style="margin-top:10px;">
                 <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="form-group row">
+                        <div class="form-group row mt-1">
                             <label for="email" class="form-label">{{ __('Email') }}</label>
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
