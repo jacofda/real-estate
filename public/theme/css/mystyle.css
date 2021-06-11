@@ -45,6 +45,14 @@
 .account-page h1{color:#fff;}
 
 
+
+.swiper-button-prev{background:rgba(255,255,255,.3);border-radius:25px;padding:1px 0;border:2px solid transparent;}
+.swiper-button-next{background:rgba(255,255,255,.3);border-radius:25px;padding:1px 0;border:2px solid transparent;}
+.swiper-button-next:before, .swiper-button-prev:before{font-size:40px;color:rgba(255,255,255,.5)}
+
+.swiper-button-prev:hover{border:2px solid #fff;background:transparent;}
+.swiper-button-next:hover{border:2px solid #fff;background:transparent;}
+
 /* PAGES */
 
 .section-full-mod-1 {background-image:  url("../images/cortinese-1.jpg");display: block;position: relative;}
@@ -129,6 +137,9 @@ h1 a.text-sushi:hover, h2 a.text-sushi:hover, h3 a.text-sushi:hover, h4 a.text-s
     color: #bf1e30;
 }
 
+.price.text-ubold{
+    color:#bf1e30;
+}
 
 .img-thumbnail-variant-1:hover .caption {background-color: #bf1e30;}
 .text-primary{color:#bf1e30;}

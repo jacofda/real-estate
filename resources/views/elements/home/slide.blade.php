@@ -6,7 +6,7 @@
                     <div class="swiper-slide-caption">
                         <div class="container">
                             <div data-caption-animate="fadeInDown" class="swiper-caption-wrap">
-                                <p data-caption-animate="fadeIn" data-caption-delay="800" class="h3">{{$slide->name}}</p>
+                                <p data-caption-animate="fadeIn" data-caption-delay="800" class="h3">{{ucwords(strtolower($slide->name))}}</p>
                                 <hr data-caption-animate="fadeIn" data-caption-delay="800">
                                 <p data-caption-animate="fadeIn" data-caption-delay="800" class="hidden-xs">{{$slide->short_desc}}</p>
                                 <div data-caption-animate="fadeIn" data-caption-delay="800" class="price text-ubold">

@@ -13,7 +13,7 @@
                     <address class="address mt-0" style="margin-top:0;">
                         <dl class="dl-horizontal-mod-1">
                             <b><u>{{__('Indirizzo')}}</u></b>:
-                            Piazza S. Francesco 15 - 32043 Cortina d'Ampezzo (BL)
+                            <a target="_BLANK" href="https://goo.gl/maps/6vSsqwD7WAvn6Stw9">Piazza S. Francesco 15 - 32043 Cortina d'Ampezzo (BL)</a>
                         </dl>
                         <dl class="dl-horizontal-mod-1">
                             <b><u>{{__('Telefono')}}:</u></b>
@@ -34,7 +34,7 @@
                     <address class="address mt-0" style="margin-top:0;">
                         <dl class="dl-horizontal-mod-1">
                             <b>{{__('Indirizzo')}}</b>:
-                            Corso Italia 8 - 32046 San Vito di Cadore (BL)
+                            <a target="_BLANK" href="https://goo.gl/maps/vg7zSgM1MYb3ZVgm8">Corso Italia 8 - 32046 San Vito di Cadore (BL)</a>
                         </dl>
                         <dl class="dl-horizontal-mod-1">
                             <b><u>{{__('Telefono')}}:</u></b>
