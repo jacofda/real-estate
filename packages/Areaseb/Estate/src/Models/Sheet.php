@@ -10,4 +10,9 @@ class Sheet extends Model
     protected $fillable = [
         'client_id'
     ];
+
+    public function client()
+    {
+        $this->belongsTo(Client::class);
+    }
 }
