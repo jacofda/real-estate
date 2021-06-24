@@ -14,7 +14,7 @@ class CreateSheetsTable extends Migration
     public function up()
     {
         Schema::create('sheets', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->unsignedInteger('client_id');
 
             $table->timestamps();
