@@ -72,6 +72,13 @@ class Client extends Primitive
         return $this->hasMany(Offer::class);
     }
 
+    /**
+     * Sheets
+     */
+    public function sheets()
+    {
+        return $this->hasMany(Sheet::class);
+    }
 
 
 
