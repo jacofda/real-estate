@@ -200,7 +200,7 @@ Route::group(['prefix' => 'api/media'], function () {
 //PROPERTIES
 use Areaseb\Estate\Http\Controllers\{PropertyController, PropertyHelperController, RequestController, FeatureController};
 use Areaseb\Estate\Http\Controllers\{BookingController, OwnershipController, TagController, ViewController};
-use Areaseb\Estate\Http\Controllers\{ClientLogController, PoiController, OfferController};
+use Areaseb\Estate\Http\Controllers\{ClientLogController, PoiController, OfferController, SheetController};
 
 
 Route::get('property-export', [PropertyController::class, 'export']);
@@ -238,3 +238,11 @@ Route::post('update-property-field', [PropertyHelperController::class, 'updateFi
 Route::get('slides', [DashboardController::class, 'slides'])->name('slides.index');
 Route::post('slides', [DashboardController::class, 'slideUpdate'])->name('slides.store');
 Route::post('slides-delete', [DashboardController::class, 'slideDestroy'])->name('slides.destroy');
+
+Route::get('sheets/create', [SheetController::class, 'create'])->name('sheets.create');
+Route::post('sheets', [SheetController::class, 'store'])->name('sheets.store');
+Route::get('sheets', [SheetController::class, 'index'])->name('sheets.index');
+Route::delete('sheets/{sheet}', [SheetController::class, 'destroy'])->name('sheets.delete');
+Route::get('sheets/download/{sheet}', [SheetController::class, 'download'])->name('sheets.download');
+Route::get('sheets/edit/{sheet}', [SheetController::class, 'edit'])->name('sheets.edit');
+Route::put('sheets/{sheet}', [SheetController::class, 'update'])->name('sheets.update');

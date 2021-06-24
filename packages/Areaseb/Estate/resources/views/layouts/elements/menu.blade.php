@@ -38,6 +38,13 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{route('sheets.index')}}" class="nav-link" >
+        <i class="nav-icon far fa-eye"></i>
+        <p>Fogli di visita</p>
+    </a>
+</li>
+
 
 <li class="nav-header text-uppercase">Immobili</li>
 <li class="nav-item">

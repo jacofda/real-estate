@@ -11,7 +11,7 @@
 
         <div class="card-tools">
             <button type="button" class="btn btn-tool text-white" data-card-widget="collapse"><i class="fas @if($hide) fa-plus @else fa-minus @endif"></i></button>
-            <a title="aggiungi foglio di visita" class="btn btn-xxs btn-primary" href="{{ '#'/*route('sheet.create')*/ }}?client_id={{ $client->id }}"><i class="fas fa-plus"></i></a>
+            <a title="aggiungi foglio di visita" class="btn btn-xxs btn-primary" href="{{ route('sheets.create') }}?client_id={{ $client->id }}"><i class="fas fa-plus"></i></a>
         </div>
 
     </div>

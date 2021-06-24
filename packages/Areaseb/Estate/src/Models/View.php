@@ -18,6 +18,4 @@ class View extends Primitive
     {
         return $this->belongsTo(Client::class);
     }
-
-
 }
