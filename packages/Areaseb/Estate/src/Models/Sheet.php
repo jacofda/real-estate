@@ -15,4 +15,9 @@ class Sheet extends Model
     {
         $this->belongsTo(Client::class);
     }
+
+    public function views()
+    {
+        $this->hasMany(View::class);
+    }
 }
