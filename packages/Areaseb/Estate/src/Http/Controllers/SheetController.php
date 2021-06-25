@@ -15,7 +15,7 @@ class SheetController extends Controller
 {
     public function index()
     {
-        $sheets = Sheet::with('client', 'property')->latest()->get();
+        $sheets = Sheet::with('client')->latest()->get();
         return view('estate::estate.sheets.index', [
             'sheets' => $sheets
         ]);

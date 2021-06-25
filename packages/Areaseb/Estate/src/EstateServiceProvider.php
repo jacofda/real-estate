@@ -61,6 +61,9 @@ class EstateServiceProvider extends ServiceProvider
         $this->app->singleton('estate', function ($app) {
             return new Estate;
         });
+
+        // Let's register the event service provider
+        $this->app->register(EventServiceProvider::class);
     }
 
     /**
