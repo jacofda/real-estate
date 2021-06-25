@@ -6,108 +6,87 @@
 
 @include('estate::layouts.elements.title', ['title' => 'Crea Foglio di visita'])
 
+@section('css')
+    <style>
+        .step-title {
+            font-size: 0.875rem;
+            line-height: 0.875rem;
+        }
+    </style>
+@stop
 
 @section('content')
 
-    {!! Form::open(['url' => route('sheets.store'), 'autocomplete' => 'off']) !!}
+    <div class="row">
+        @include('estate::components.errors')
 
-        {!! Form::hidden('previous_url', url()->previous()) !!}
+        <div class="col-md-8 offset-md-2">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Nuovo foglio di visita</h3>
+                </div>
+                <div class="card-body">
 
-        <div class="row">
-            @include('estate::components.errors')
-
-            <div class="col-md-8 offset-md-2">
-                <div class="card card-outline card-primary">
-                    <div class="card-header">
-                        <h3 class="card-title">Nuova Visita</h3>
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="step-title">1. Scegli il cliente</h4>
+                            <div class="form-group">
+                                {!! Form::select('client_id', $clients, request('client_id'), ['id' => 'client']) !!}
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
 
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    {!! Form::select('client_id', $clients, request('client_id'), ['id' => 'selectContactrequest']) !!}
-                                </div>
-                            </div>
+                    <div id="form" class="d-none">
+                        {!! Form::open(['url' => route('sheets.store'), 'autocomplete' => 'off']) !!}
+                            {!! Form::hidden('previous_url', url()->previous()) !!}
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    {!! Form::select('property_id', $properties, request('property_id'), ['id' => 'selectPropertiesRequest']) !!}
-                                </div>
-                            </div>
+                            <div class="row">
 
-                        </div>
-
-                        <div class="row d-none" id="createContact">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    {!! Form::text('nome', null, ['class' => 'form-control', 'placeholder' => 'Nome']) !!}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    {!! Form::text('cognome', null, ['class' => 'form-control', 'placeholder' => 'Cognome']) !!}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email*']) !!}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    {!! Form::text('mobile', null, ['class' => 'form-control', 'placeholder' => 'Telefono']) !!}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    {!! Form::text('citta', null, ['class' => 'form-control', 'placeholder' => 'Comune/Città']) !!}
-                                </div>
-                            </div>
-
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <button class="btn btn-success saveQuickContact">Crea Contatto</button>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row d-none" id="createRequest">
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <div class="input-group date" id="schedule" data-target-input="nearest">
-                                        <input type="text" name="created_at" class="form-control datetimepicker-input" data-target="#schedule" value="{{date('d/m/Y H:i')}}"/>
-                                        <div class="input-group-append" data-target="#schedule" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
+                                <div class="col-12">
+                                    <h4 class="step-title mb-3">2. Scegli le visite da aggiungere al foglio di visita</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered table-striped ">
+                                            <thead>
+                                                <tr>
+                                                    <td>Visita</td>
+                                                    <th data-sortable="false" style="width:95px;"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="view-list">
+                                                {{-- Loaded using  --}}
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
+                        {!! Form::close() !!}
 
-                            <div class="col-sm-12">
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-10">
                                 <div class="form-group">
-                                    {!! Form::textarea('note', null, ['class' => 'form-control', 'rows' => 4, 'placeholder' => 'Riassunto veloce della richiesta']) !!}
+                                    {!! Form::select('views', $views, null, ['id' => 'views']) !!}
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <button id="add-view" class="btn btn-primary btn-sm btn-block btn-save-view"> <i class="fa fa-save"></i> Aggiungi</button>
                                 </div>
                             </div>
 
                         </div>
-
-
                     </div>
-                    <div class="card-footer p-0">
-                        <button disabled type="submit" class="btn btn-primary btn-sm btn-block btn-save-view"> <i class="fa fa-save"></i> Salva</button>
-                    </div>
+
+                </div>
+                <div class="card-footer p-0">
+                    <button class="btn btn-primary btn-sm btn-block btn-save-view" id="submit-sheet" disabled> <i class="fa fa-save"></i> Salva</button>
                 </div>
             </div>
-
         </div>
-    {!! Form::close() !!}
+
+    </div>
 
 @stop
 
@@ -115,112 +94,60 @@
 <script>
 
 
-@if( request('client_id') || request('property_id') )
-    $('#createRequest').removeClass('d-none');
+@if( request('client_id') )
+    $('#form').removeClass('d-none')
 @endif
 
-    $('#selectContactrequest').select2({width:'100%', placeholder:"Seleziona o crea contatto"});
-    $('#selectPropertiesRequest').select2({width:'100%', placeholder:"Seleziona immobile"});
+    $('#client').select2({width:'100%', placeholder:"Seleziona o crea contatto"})
+    $('#views').select2({width:'100%', placeholder:"Seleziona o crea visita"})
 
-
-    $('#selectContactrequest').on('change', function(){
-        if($(this).select2('data')[0].id == 'new')
-        {
-            $('#createContact').removeClass('d-none');
-
-
-            $('input[name="email"]').on('focusout', function(){
-                let emailInput = $(this);
-                axios.post(baseURL+'request-email-exists', {_token:token, email: emailInput.val()}).then((response) => {
-                    console.log(response.data);
-                    if(response.data != '0')
-                    {
-                        emailInput.val('');
-                        err('Email già presente nel database, associata ad '+response.data)
-                    }
-                });
-            })
-
-            $('button.saveQuickContact').on('click', function(e){
-                e.preventDefault()
-                let data = {};
-                data._token = token;
-                data.nome = $('input[name="nome"]').val();
-                data.cognome = $('input[name="cognome"]').val();
-                data.email = $('input[name="email"]').val();
-                data.mobile = $('input[name="mobile"]').val();
-                data.citta = $('input[name="citta"]').val();
-
-                if(data.email == "")
-                {
-                    return false;
-                    err('Email è obbligatoria');
-                }
-
-                axios.post(baseURL+'request-create-contact', data).then((response) => {
-                    pass('Contatto Aggiunto');
-                    $('input#contact').val(response.data);
-                    $('#createRequest').removeClass('d-none');
-                    $('#createContact').addClass('d-none');
-                });
-            });
+    $('#client').on('change', function() {
+        if ($(this).val() != 'new') {
+            // Open form to create client
         }
-        else
-        {
-            $('#createContact').addClass('d-none');
-            $('#createRequest').removeClass('d-none');
+
+        $('#form').removeClass('d-none');
+    })
+
+    $('#add-view').on('click', function () {
+        let data = $('#views').select2('data')
+
+        if (data[0].id == 'new') {
+            // Open form to create a new view
+        } else {
+            let view = $(`<tr class="view">
+                            <td>
+                                <input type="hidden" name="view[]" value="${data['0'].id}" />
+                                <span>${data['0'].text}</span>
+                            </td>
+                            <td><a href="#" class="btn btn-xs btn-danger dlt"><i class="fa fa-trash"></i></a></td>
+                        </tr>`)
+
+            // Disable the option, delect the select and append the row into the table
+            $("#views > option[value='" + data[0].id + "']").prop('disabled', true)
+            $("#views > option").not(':disabled').prop('selected', true)
+            $('#view-list').append(view)
+
+            // Let's enable the submit button
+            $('#submit-sheet').prop('disabled', false)
         }
-    });
+    })
 
-    $('textarea[name="note"]').on('keyup', function(){
-        let created_at = false;
-        if($('input[name="created_at"]').val())
-        {
-            created_at = true;
+    $(document).on('click', '.dlt', function (e) {
+        e.preventDefault()
+        let $parent = $(this).parent().parent()
+        let id = $parent.find('input').val()
+        $parent.remove()
+        $("#views > option[value='" + id + "']").prop('disabled', false)
+
+        // Disable the button if there is no view selected
+        if (!$('.view').length) {
+            $('#submit-sheet').prop('disabled', true)
         }
-        let property = false;
-        if($('select[name="property_id"]').val())
-        {
-            property = true;
-        }
-        if(created_at && property)
-        {
-            $('.btn-save-view').prop('disabled', false);
-        }
-    });
+    })
 
-
-    // $('button.btn-save-view').on('click', function(e){
-    //     let data = {};
-    //     e.preventDefault();
-    //     data._token = token;
-    //     data.type = $('select[name="type"]').val();
-    //     data.created_at = $('input[name="created_at"]').val();
-    //     data.note = $('textarea[name="note"]').val();
-    //     data.client_id = $('select[name="client_id"]').val();
-    //     data.property_id = $('#selectPropertiesRequest').val();
-    //     data.old_url =  $('input[name="old_url"]').val();
-    //
-    //     // console.log(data);
-    //     // return false;
-    //
-    //     axios.post(baseURL+'views', data).then((response) => {
-    //         if(response.data == 'done')
-    //         {
-    //             window.location.href = "route('views.index')}}";
-    //         }
-    //         else
-    //         {
-    //             console.log(response.data);
-    //         }
-    //     });
-    // });
-
-
-    $('#schedule').datetimepicker();
-
-
-
-
+    $('#submit-sheet').on('click', function () {
+        $('#form form').submit()
+    })
 </script>
 @stop

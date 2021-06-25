@@ -61,10 +61,17 @@ class SheetController extends Controller
 
     protected function getViewsByClient(Client $client = null)
     {
-        $clientViews = $client
-            ? View::where('client_id', $client->id)->get()->toArray()
-            : [];
+        $views = $client
+            ? View::where('client_id', $client->id)->get()
+            : collect([]);
 
-        return ['' => '', 'new' => 'Nuova visita'] + $clientViews;
+        $views = $views->map(function ($view) {
+            return [
+                'id' => $view->id,
+                'name' => $view->property->name_it . ' - ' . $view->created_at->format('d/m/Y'),
+            ];
+        });
+
+        return ['' => '', 'new' => 'Nuova visita'] + $views->pluck('name', 'id')->toArray();
     }
 }
