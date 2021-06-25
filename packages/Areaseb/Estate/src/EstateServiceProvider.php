@@ -19,6 +19,7 @@ class EstateServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'estate');
 
         $this->registerRoutes();
+        $this->registerStorageDisks();
 
         if ($this->app->runningInConsole()) {
 
@@ -109,5 +110,13 @@ class EstateServiceProvider extends ServiceProvider
 
         // Registering package commands.
         // $this->commands([]);
+    }
+
+    protected function registerStorageDisks()
+    {
+        $this->app['config']['filesystems.disks.sheets'] = [
+            'driver' => 'local',
+            'root' => storage_path('app/sheets'),
+        ];
     }
 }

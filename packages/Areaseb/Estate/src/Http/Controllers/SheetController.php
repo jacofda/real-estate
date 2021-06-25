@@ -8,11 +8,24 @@ use Areaseb\Estate\Models\Client;
 use Areaseb\Estate\Models\Property;
 use Areaseb\Estate\Models\Sheet;
 use Areaseb\Estate\Models\View;
+use Areaseb\Estate\Services\SheetPDFGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+use Knp\Snappy\Pdf;
 
 class SheetController extends Controller
 {
+    /**
+     * @var SheetPDFGenerator
+     */
+    protected $sheetPdfGenerator;
+
+    public function __construct(SheetPDFGenerator $sheetPdfGenerator)
+    {
+        $this->sheetPdfGenerator = $sheetPdfGenerator;
+    }
+
     public function index()
     {
         $sheets = Sheet::with('client')->latest()->get();
@@ -61,6 +74,39 @@ class SheetController extends Controller
     public function update(Sheet $sheet)
     {
         //
+    }
+
+    public function sign($code)
+    {
+        $sheet = Sheet::uuid($code)->first();
+        return view('estate::estate.sheets.sign', [
+            'sheet' => $sheet
+        ]);
+    }
+
+    public function processSign(Request $request, $code)
+    {
+        $sheet = Sheet::uuid($code)->first();
+        $sign = $request->input('sign');
+        $pdf = $this->sheetPdfGenerator->generate($sheet, $sign)->output();
+        Storage::disk('sheets')->put($sheet->uuid . '.pdf', $pdf);
+        return view('estate::estate.sheets.thanks', [
+            'sheet' => $sheet
+        ]);
+    }
+
+    public function preview($code)
+    {
+        $sheet = Sheet::uuid($code)->first();
+        return $this->sheetPdfGenerator->preview($sheet)->inline('preview.pdf');
+    }
+
+    public function downloadSigned($code)
+    {
+        $sheet = Sheet::uuid($code)->first();
+        $response = Storage::disk('sheets')->response($sheet->uuid . '.pdf');
+        $response->headers->set('Content-Disposition', 'filename="sheet.pdf"');
+        return $response;
     }
 
     /**
