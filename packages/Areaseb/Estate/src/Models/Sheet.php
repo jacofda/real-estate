@@ -9,7 +9,12 @@ class Sheet extends Model
 {
     protected $table = 'sheets';
     protected $fillable = [
-        'client_id'
+        'client_id',
+        'signed',
+        'signed_at'
+    ];
+    protected $dates = [
+        'signed_at'
     ];
 
     /**
