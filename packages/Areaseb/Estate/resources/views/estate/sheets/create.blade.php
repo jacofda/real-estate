@@ -39,6 +39,7 @@
                     <div id="form" class="d-none">
                         {!! Form::open(['url' => route('sheets.store'), 'autocomplete' => 'off']) !!}
                             {!! Form::hidden('previous_url', url()->previous()) !!}
+                            {!! Form::hidden('client_id', request('client_id')) !!}
 
                             <div class="row">
 
@@ -102,10 +103,16 @@
     $('#views').select2({width:'100%', placeholder:"Seleziona o crea visita"})
 
     $('#client').on('change', function() {
-        if ($(this).val() != 'new') {
+        let $this = $(this)
+
+        if ($this.val() != 'new') {
             // Open form to create client
         }
 
+        // Let's save the client_id
+        $("input[name='client_id']").val($this.val())
+
+        // Open the form
         $('#form').removeClass('d-none');
     })
 

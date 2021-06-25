@@ -2,11 +2,14 @@
 
 namespace Areaseb\Estate\Http\Controllers;
 
+use Areaseb\Estate\Events\SheetCreated;
+use Areaseb\Estate\Http\Requests\StoreSheetRequest;
 use Areaseb\Estate\Models\Client;
 use Areaseb\Estate\Models\Property;
 use Areaseb\Estate\Models\Sheet;
 use Areaseb\Estate\Models\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class SheetController extends Controller
 {
@@ -33,9 +36,11 @@ class SheetController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreSheetRequest $request)
     {
-        //
+        // Let's store a new sheet
+        $sheet = $this->createNewSheet($request);
+        event(new SheetCreated($sheet));
     }
 
     public function destroy(Sheet $sheet)
@@ -58,7 +63,9 @@ class SheetController extends Controller
         //
     }
 
-
+    /**
+     * Create options for views
+     */
     protected function getViewsByClient(Client $client = null)
     {
         $views = $client
@@ -73,5 +80,25 @@ class SheetController extends Controller
         });
 
         return ['' => '', 'new' => 'Nuova visita'] + $views->pluck('name', 'id')->toArray();
+    }
+
+    /**
+     * Create a new sheet
+     */
+    protected function createNewSheet(Request $request)
+    {
+        $sheet = new Sheet();
+
+        // Let's prepare the data for the model
+        $data = Arr::only($request->all(), $sheet->getFillable());
+        $views = collect($request->input('view'))->map(function ($viewId) {
+            return View::find($viewId);
+        });
+
+        $sheet->fill($data)->save();
+        $sheet->views()->saveMany($views);
+        $sheet->save();
+
+        return $sheet;
     }
 }
