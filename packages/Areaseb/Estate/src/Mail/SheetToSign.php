@@ -38,7 +38,7 @@ class SheetToSign extends Mailable
         return $this->to($this->email)
             ->subject('Foglio di visita da firmare')
             ->markdown('estate::emails.sheets.send', [
-                'url' => '#' // TODO: Add real link
+                'url' => route('sheets.sign', ['uuid' => $this->sheet->uuid])
             ]);
     }
 }

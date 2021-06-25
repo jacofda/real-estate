@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateSheetsTable extends Migration
@@ -16,6 +17,7 @@ class CreateSheetsTable extends Migration
         Schema::create('sheets', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('client_id');
+            $table->uuid('uuid')->nullable();
 
             $table->timestamps();
 

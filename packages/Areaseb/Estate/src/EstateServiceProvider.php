@@ -46,6 +46,10 @@ class EstateServiceProvider extends ServiceProvider
         Route::group(['middleware' => ['web', 'auth']], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
+
+        Route::group(['middleware' => ['web']], function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/guest.php');
+        });
     }
 
     /**
