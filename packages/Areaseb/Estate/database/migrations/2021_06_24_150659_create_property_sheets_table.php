@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSheetsTable extends Migration
+class CreatePropertySheetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class CreateSheetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sheets', function (Blueprint $table) {
+        Schema::create('property_sheets', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('client_id');
             $table->uuid('uuid')->nullable();
@@ -34,6 +34,6 @@ class CreateSheetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sheets');
+        Schema::dropIfExists('property_sheets');
     }
 }

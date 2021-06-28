@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class Sheet extends Model
 {
-    protected $table = 'sheets';
+    protected $table = 'property_sheets';
     protected $fillable = [
         'client_id',
         'signed',
@@ -51,7 +51,7 @@ class Sheet extends Model
 
     public function views()
     {
-        return $this->hasMany(View::class);
+        return $this->hasMany(View::class, 'property_sheet_id');
     }
 
     /**

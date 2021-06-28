@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSheetIdFieldToPropertyViewsTable extends Migration
+class AddPropertySheetIdFieldToPropertyViewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddSheetIdFieldToPropertyViewsTable extends Migration
     public function up()
     {
         Schema::table('property_views', function (Blueprint $table) {
-            $table->unsignedInteger('sheet_id')->nullable()->after('client_id');
-            $table->foreign('sheet_id')->references('id')->on('sheets');
+            $table->unsignedInteger('property_sheet_id')->nullable()->after('client_id');
+            $table->foreign('property_sheet_id')->references('id')->on('property_sheets');
         });
     }
 
@@ -27,8 +27,8 @@ class AddSheetIdFieldToPropertyViewsTable extends Migration
     public function down()
     {
         Schema::table('property_views', function (Blueprint $table) {
-            $table->dropForeign(['sheet_id']);
-            $table->dropColumn('sheet_id');
+            $table->dropForeign(['property_sheet_id']);
+            $table->dropColumn('property_sheet_id');
         });
     }
 }

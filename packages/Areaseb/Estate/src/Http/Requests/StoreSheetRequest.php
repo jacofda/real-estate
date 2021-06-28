@@ -32,8 +32,17 @@ class StoreSheetRequest extends FormRequest
             'view.*' => [
                 Rule::exists('property_views', 'id')
                     ->where('client_id', $clientId)
-                    ->whereNull('sheet_id')
+                    ->whereNull('property_sheet_id')
             ]
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'client_id' => 'cliente',
+            'view' => 'visita',
+            'view.*' => 'visita'
         ];
     }
 }
