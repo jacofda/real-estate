@@ -36,7 +36,7 @@
                         </div>
                     </div>
 
-                    <form class="d-none" id="client-new">
+                    <div class="d-none" id="client-new">
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
@@ -70,11 +70,11 @@
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <button class="btn btn-success saveQuickContact">Crea Contatto</button>
+                                    <button class="btn btn-success" id="saveQuickContact">Crea Contatto</button>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
 
                     <div id="form" class="d-none">
                         <form action="{{ route('sheets.store') }}" method="POST" autocomplete="off" id="sheet-new">
@@ -292,6 +292,30 @@
     $('#submit-sheet').on('click', function () {
         $('#sheet-new').submit()
     })
+
+    $('#saveQuickContact').on('click', function(e){
+        e.preventDefault()
+        let data = {};
+        data._token = token;
+        data.nome = $('input[name="nome"]').val();
+        data.cognome = $('input[name="cognome"]').val();
+        data.email = $('input[name="email"]').val();
+        data.mobile = $('input[name="mobile"]').val();
+        data.citta = $('input[name="citta"]').val();
+
+        if (data.email == "") {
+            return false;
+            err('Email è obbligatoria');
+        }
+
+        axios.post(baseURL+'request-create-contact', data, function (response) {
+            pass('Contatto Aggiunto');
+
+            $('#client-new').addClass('d-none')
+            $("input[name='client_id']").val(response)
+            $('#form').removeClass('d-none')
+        })
+    });
 
     initClientSelect2()
     initViewsSelect2()
