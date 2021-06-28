@@ -29,11 +29,14 @@
                                 @foreach($sheets as $sheet)
                                     <tr id="row-{{ $sheet->id }}">
                                         <td>{{ $sheet->client->fullname }}</td>
-                                        <td><p title="doppio click open" class="limited-text hoverable showAll">{{$view->note}}</td>
-                                        <td>No</td>
                                         <td data-sort="{{ $sheet->created_at->timestamp }}">{{ $sheet->created_at->format('d/m/Y') }}</td>
+                                        <td>{{ $sheet->signed ? 'Sì' : 'No' }}</td>
                                         <td>
-                                            <a href="{{ route('sheets.download', $sheet->id )}}" class="btn btn-xs btn-info" download><i class="fa fa-download"></i></a>
+                                            @if ($sheet->signed)
+                                                <a href="{{ route('sheets.download', ['uuid' => $sheet->uuid] )}}" class="btn btn-xs btn-info" download><i class="fa fa-download"></i></a>
+                                            @else
+                                            <a href="{{ route('sheets.sign', ['uuid' => $sheet->uuid] )}}" class="btn btn-xs btn-info"><i class="fa fa-signature"></i></a>
+                                            @endif
                                             <a href="{{ route('sheets.edit', $sheet->id )}}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
                                             <a href="#" data-id="{{ $sheet->id }}" class="btn btn-xs btn-danger dlt"><i class="fa fa-trash"></i></a>
                                         </td>

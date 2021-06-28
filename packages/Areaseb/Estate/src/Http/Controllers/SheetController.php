@@ -55,14 +55,10 @@ class SheetController extends Controller
         // Let's store a new sheet
         $sheet = $this->createNewSheet($request);
         event(new SheetCreated($sheet));
+        return redirect()->route('sheets.index');
     }
 
     public function destroy(Sheet $sheet)
-    {
-        //
-    }
-
-    public function download(Sheet $sheet)
     {
         //
     }
@@ -121,7 +117,7 @@ class SheetController extends Controller
         return $this->sheetPdfGenerator->preview($sheet)->inline('preview.pdf');
     }
 
-    public function downloadPublic($uuid)
+    public function download($uuid)
     {
         $sheet = Sheet::uuid($uuid)->signed()->first();
         if (!$sheet) {

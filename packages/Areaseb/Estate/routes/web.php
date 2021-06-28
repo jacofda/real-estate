@@ -243,6 +243,5 @@ Route::get('sheets/create', [SheetController::class, 'create'])->name('sheets.cr
 Route::post('sheets', [SheetController::class, 'store'])->name('sheets.store');
 Route::get('sheets', [SheetController::class, 'index'])->name('sheets.index');
 Route::delete('sheets/{sheet}', [SheetController::class, 'destroy'])->name('sheets.delete');
-Route::get('sheets/download/{sheet}', [SheetController::class, 'download'])->name('sheets.download');
-Route::get('sheets/edit/{sheet}', [SheetController::class, 'edit'])->name('sheets.edit');
+Route::get('sheets/{sheet}/edit', [SheetController::class, 'edit'])->name('sheets.edit');
 Route::put('sheets/{sheet}', [SheetController::class, 'update'])->name('sheets.update');

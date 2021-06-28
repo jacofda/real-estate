@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-12">
                 <h4>Rivedi il foglio di visita generato prima di firmarlo</h4>
-                <iframe class="w-full" style="height: 65vh" src="{{ route('sheets.sign.preview', ['uuid' => $sheet->uuid]) }}" frameborder="0"></iframe>
+                <iframe class="w-full" style="height: 65vh" src="{{ route('sheets.preview', ['uuid' => $sheet->uuid]) }}" frameborder="0"></iframe>
             </div>
         </div>
         <div class="row">
@@ -65,7 +65,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annulla</button>
-                    <form action="{{ route('sheets.sign.process', ['uuid' => $sheet->uuid]) }}" method="POST" id="sign-form">
+                    <form action="{{ route('sheets.sign', ['uuid' => $sheet->uuid]) }}" method="POST" id="sign-form">
                         @csrf
                         <input type="hidden" name="sign" value="" id="sign-input" />
                         <button type="button" class="btn btn-danger" id="sign">Firma</button>

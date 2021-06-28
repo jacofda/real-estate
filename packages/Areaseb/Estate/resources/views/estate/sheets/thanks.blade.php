@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-12">
                 <p>Grazie per aver firmato il foglio di visita</p>
-                <a href="{{ route('sheets.sign.download', ['uuid' => $sheet->uuid]) }}" class="btn btn-primary" download>Scarica il documento firmato</a>
+                <a href="{{ route('sheets.download', ['uuid' => $sheet->uuid]) }}" class="btn btn-primary" download>Scarica il documento firmato</a>
             </div>
         </div>
     </div>
