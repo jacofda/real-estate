@@ -5,6 +5,7 @@ namespace Areaseb\Estate\Http\Controllers;
 use Areaseb\Estate\Events\SheetCreated;
 use Areaseb\Estate\Http\Requests\SignSheetRequest;
 use Areaseb\Estate\Http\Requests\StoreSheetRequest;
+use Areaseb\Estate\Http\Requests\StoreViewRequest;
 use Areaseb\Estate\Models\Client;
 use Areaseb\Estate\Models\Property;
 use Areaseb\Estate\Models\Sheet;
@@ -13,7 +14,8 @@ use Areaseb\Estate\Services\SheetPDFGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
-use Knp\Snappy\Pdf;
+use Carbon\Carbon;
+
 
 class SheetController extends Controller
 {
@@ -138,6 +140,21 @@ class SheetController extends Controller
     }
 
     /**
+     * Store new view
+     */
+    public function apiViewsStore(StoreViewRequest $request)
+    {
+        $client_id = $request->input('client_id');
+        $view = $this->createNewView($request);
+
+        // Just to simplify the javascript
+        return [
+            'id' => $view->id,
+            'text' => $view->property->name_it . ' - ' . $view->created_at->format('d/m/Y')
+        ];
+    }
+
+    /**
      * Create options for views
      */
     protected function getViewsByClient(Client $client = null)
@@ -174,5 +191,21 @@ class SheetController extends Controller
         $sheet->save();
 
         return $sheet;
+    }
+
+    /**
+     * Create a new view
+     */
+    protected function createNewView(Request $request)
+    {
+        // Create the new model
+        $view = View::create([
+            'client_id' => $request->input('client_id'),
+            'property_id' => $request->input('property_id'),
+            'note' => $request->input('note'),
+            'created_at' => Carbon::createFromFormat('d/m/Y H:i', $request->input('created_at'))
+        ]);
+
+        return $view;
     }
 }

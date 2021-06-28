@@ -77,9 +77,10 @@
                     </form>
 
                     <div id="form" class="d-none">
-                        {!! Form::open(['url' => route('sheets.store'), 'autocomplete' => 'off']) !!}
+                        <form action="{{ route('sheets.store') }}" method="POST" autocomplete="off" id="sheet-new">
                             {!! Form::hidden('previous_url', url()->previous()) !!}
                             {!! Form::hidden('client_id', request('client_id')) !!}
+                            @csrf
 
                             <div class="row">
 
@@ -100,7 +101,7 @@
                                     </div>
                                 </div>
                             </div>
-                        {!! Form::close() !!}
+                        </form>
 
                         <hr>
 
@@ -121,6 +122,8 @@
 
                         <form class="d-none" id="view-new">
                             {!! Form::hidden('client_id', request('client_id')) !!}
+
+                            @csrf
 
                             <div class="row">
                                 <div class="col-6">
@@ -188,14 +191,14 @@
     function addViewToList(data) {
         let view = $(`<tr class="view">
                         <td>
-                            <input type="hidden" name="view[]" value="${data['0'].id}" />
-                            <span>${data['0'].text}</span>
+                            <input type="hidden" name="view[]" value="${data.id}" />
+                            <span>${data.text}</span>
                         </td>
                         <td><a href="#" class="btn btn-xs btn-danger dlt"><i class="fa fa-trash"></i></a></td>
                     </tr>`)
 
         // Disable the option, delect the select and append the row into the table
-        $("#views > option[value='" + data[0].id + "']").prop('disabled', true)
+        $("#views > option[value='" + data.id + "']").prop('disabled', true)
         $("#views > option").not(':disabled').prop('selected', true)
         $('#view-list').append(view)
 
@@ -223,6 +226,21 @@
 
     function initPropertiesSelect2() {
         $('#properties').select2({width:'100%', placeholder:"Seleziona immobile"});
+    }
+
+    function createNewView() {
+        let data = $('#view-new').serialize()
+        $.post('/api/sheets/views', data, function (response) {
+            // Let's add the response to the select2
+            var view = new Option(response.text, response.id, false, false);
+            $('#views').append(view).trigger('change');
+
+            // Add the view to the list
+            addViewToList(response)
+
+            // Let's clear the form
+            $('textarea[name="note"]').val('');
+        })
     }
 
     $('#client').on('change', function() {
@@ -253,9 +271,9 @@
     $('#add-view').on('click', function () {
         let data = $('#views').select2('data')
         if (data[0].id == 'new') {
-            return
+            return createNewView()
         }
-        addViewToList(data)
+        addViewToList(data[0])
     })
 
     $(document).on('click', '.dlt', function (e) {
@@ -272,7 +290,7 @@
     })
 
     $('#submit-sheet').on('click', function () {
-        $('#form form').submit()
+        $('#sheet-new').submit()
     })
 
     initClientSelect2()

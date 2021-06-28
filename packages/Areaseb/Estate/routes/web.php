@@ -247,3 +247,4 @@ Route::get('sheets/{sheet}/edit', [SheetController::class, 'edit'])->name('sheet
 Route::put('sheets/{sheet}', [SheetController::class, 'update'])->name('sheets.update');
 
 Route::get('api/sheets/client/{client}/views', [SheetController::class, 'apiViewsIndex']);
+Route::post('api/sheets/views', [SheetController::class, 'apiViewsStore']);
