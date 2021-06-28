@@ -32,13 +32,4 @@ class StoreViewRequest extends FormRequest
             'note' => ['string', 'nullable']
         ];
     }
-
-    public function attributes()
-    {
-        return [
-            'client_id' => 'cliente',
-            'view' => 'visita',
-            'view.*' => 'visita'
-        ];
-    }
 }
