@@ -6,6 +6,7 @@ use Areaseb\Estate\Events\SheetCreated;
 use Areaseb\Estate\Http\Requests\SignSheetRequest;
 use Areaseb\Estate\Http\Requests\StoreSheetRequest;
 use Areaseb\Estate\Http\Requests\StoreViewRequest;
+use Areaseb\Estate\Http\Requests\UpdateSheetRequest;
 use Areaseb\Estate\Models\Client;
 use Areaseb\Estate\Models\Property;
 use Areaseb\Estate\Models\Sheet;
@@ -67,12 +68,21 @@ class SheetController extends Controller
 
     public function edit(Sheet $sheet)
     {
-        //
+        $clients = ['' => '', 'new' => 'Nuovo Contatto'] + Client::pluck('rag_soc' ,'id')->toArray();
+        $properties = ['' => ''] + Property::pluck('name_it', 'id')->toArray();
+
+        return view('estate::estate.sheets.edit', [
+            'clients' => $clients,
+            'properties' => $properties,
+            'views' => $this->getViewsByClient($sheet->client, $sheet->views),
+            'sheet' => $sheet
+        ]);
     }
 
-    public function update(Sheet $sheet)
+    public function update(UpdateSheetRequest $request, Sheet $sheet)
     {
-        //
+        $sheet = $this->updateSheet($sheet, $request);
+        return redirect()->route('sheets.index');
     }
 
     public function showSignForm($uuid)
@@ -156,20 +166,42 @@ class SheetController extends Controller
     /**
      * Create options for views
      */
-    protected function getViewsByClient(Client $client = null)
+    protected function getViewsByClient(Client $client = null, $selected = null)
     {
+        if (!$selected) {
+            $selected = collect([]);
+        }
+
+        // Prepare the views to show
+        // If there are some selected, we need to merge them
         $views = $client
             ? View::where('client_id', $client->id)->withoutSheet()->get()
             : collect([]);
+        $views = $views->merge($selected);
 
-        $views = $views->map(function ($view) {
+        // Let's prepare what we need into the view
+        $views = $views->map(function ($view) use ($selected) {
             return [
                 'id' => $view->id,
                 'name' => $view->property->name_it . ' - ' . $view->created_at->format('d/m/Y'),
+                'disabled' => $selected->contains($view)
             ];
         });
 
-        return ['' => '', 'new' => 'Nuova visita'] + $views->pluck('name', 'id')->toArray();
+        $default = [
+            [
+                'id' => '',
+                'name' => '',
+                'disabled' => false
+            ],
+            [
+                'id' => 'new',
+                'name' => 'Nuova visita',
+                'disabled' => false
+            ],
+        ];
+
+        return $default + $views->toArray();
     }
 
     /**
@@ -178,12 +210,26 @@ class SheetController extends Controller
     protected function createNewSheet(Request $request)
     {
         $sheet = new Sheet();
+        return $this->updateSheet($sheet, $request);
+    }
 
+    /**
+     * Update a sheet
+     */
+    protected function updateSheet(Sheet $sheet, Request $request)
+    {
         // Let's prepare the data for the model
         $data = Arr::only($request->all(), $sheet->getFillable());
         $views = collect($request->input('view'))->map(function ($viewId) {
             return View::find($viewId);
         });
+
+        foreach ($sheet->views as $view) {
+            if (!$views->contains($view)) {
+                $view->sheet()->dissociate();
+                $view->save();
+            }
+        }
 
         $sheet->fill($data)->save();
         $sheet->views()->saveMany($views);
