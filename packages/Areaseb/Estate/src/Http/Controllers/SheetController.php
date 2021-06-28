@@ -3,6 +3,7 @@
 namespace Areaseb\Estate\Http\Controllers;
 
 use Areaseb\Estate\Events\SheetCreated;
+use Areaseb\Estate\Http\Requests\SignSheetRequest;
 use Areaseb\Estate\Http\Requests\StoreSheetRequest;
 use Areaseb\Estate\Models\Client;
 use Areaseb\Estate\Models\Property;
@@ -76,34 +77,57 @@ class SheetController extends Controller
         //
     }
 
-    public function sign($code)
+    public function showSignForm($uuid)
     {
-        $sheet = Sheet::uuid($code)->first();
+        $sheet = Sheet::uuid($uuid)->notSigned()->first();
+        if (!$sheet) {
+            return abort(404);
+        }
+
         return view('estate::estate.sheets.sign', [
             'sheet' => $sheet
         ]);
     }
 
-    public function processSign(Request $request, $code)
+    public function sign(SignSheetRequest $request, $uuid)
     {
-        $sheet = Sheet::uuid($code)->first();
+        $sheet = Sheet::uuid($uuid)/*->notSigned()*/->first();
+        if (!$sheet) {
+            return abort(404);
+        }
+
         $sign = $request->input('sign');
+
+        // Generate and save the sheet
         $pdf = $this->sheetPdfGenerator->generate($sheet, $sign)->output();
         Storage::disk('sheets')->put($sheet->uuid . '.pdf', $pdf);
+
+        // The sheet is signed
+        $sheet->signed = true;
+        $sheet->save();
+
         return view('estate::estate.sheets.thanks', [
             'sheet' => $sheet
         ]);
     }
 
-    public function preview($code)
+    public function preview($uuid)
     {
-        $sheet = Sheet::uuid($code)->first();
+        $sheet = Sheet::uuid($uuid)->notSigned()->first();
+        if (!$sheet) {
+            return abort(404);
+        }
+
         return $this->sheetPdfGenerator->preview($sheet)->inline('preview.pdf');
     }
 
-    public function downloadSigned($code)
+    public function downloadPublic($uuid)
     {
-        $sheet = Sheet::uuid($code)->first();
+        $sheet = Sheet::uuid($uuid)->signed()->first();
+        if (!$sheet) {
+            return abort(404);
+        }
+
         $response = Storage::disk('sheets')->response($sheet->uuid . '.pdf');
         $response->headers->set('Content-Disposition', 'filename="sheet.pdf"');
         return $response;

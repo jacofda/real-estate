@@ -18,6 +18,12 @@ class Sheet extends Model
     ];
 
     /**
+     * --------
+     * FUNCTIONS
+     * --------
+     */
+
+    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -32,6 +38,12 @@ class Sheet extends Model
         });
     }
 
+    /**
+     * --------
+     * RELATIONSHIPS
+     * --------
+     */
+
     public function client()
     {
         return $this->belongsTo(Client::class);
@@ -42,7 +54,23 @@ class Sheet extends Model
         return $this->hasMany(View::class);
     }
 
-    public function scopeUuid($query, $uuid) {
+    /**
+     * --------
+     * SCOPES
+     * --------
+     */
+    public function scopeUuid($query, $uuid)
+    {
         return $query->where('uuid', $uuid);
+    }
+
+    public function scopeNotSigned($query)
+    {
+        return $query->where('signed', false);
+    }
+
+    public function scopeSigned($query)
+    {
+        return $query->where('signed', true);
     }
 }
