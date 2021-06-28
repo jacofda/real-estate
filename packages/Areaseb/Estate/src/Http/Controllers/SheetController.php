@@ -144,7 +144,6 @@ class SheetController extends Controller
      */
     public function apiViewsStore(StoreViewRequest $request)
     {
-        $client_id = $request->input('client_id');
         $view = $this->createNewView($request);
 
         // Just to simplify the javascript
