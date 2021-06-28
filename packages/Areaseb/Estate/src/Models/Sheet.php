@@ -73,4 +73,24 @@ class Sheet extends Model
     {
         return $query->where('signed', true);
     }
+
+    /**
+     * --------
+     * ACCESSOR
+     * --------
+     */
+
+    //get class name
+    public function getClassAttribute() {
+        $arr = explode("\\", get_class($this));
+        return end($arr);
+    }
+
+    public function getTransClassAttribute() {
+        return 'Foglio di visita';
+    }
+
+    public function getDirectoryAttribute() {
+        return str_plural(strtolower($this->class));
+    }
 }

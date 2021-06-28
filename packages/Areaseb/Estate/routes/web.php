@@ -242,7 +242,7 @@ Route::post('slides-delete', [DashboardController::class, 'slideDestroy'])->name
 Route::get('sheets/create', [SheetController::class, 'create'])->name('sheets.create');
 Route::post('sheets', [SheetController::class, 'store'])->name('sheets.store');
 Route::get('sheets', [SheetController::class, 'index'])->name('sheets.index');
-Route::delete('sheets/{sheet}', [SheetController::class, 'destroy'])->name('sheets.delete');
+Route::delete('sheets/{sheet}', [SheetController::class, 'destroy'])->name('sheets.destroy');
 Route::get('sheets/{sheet}/edit', [SheetController::class, 'edit'])->name('sheets.edit');
 Route::put('sheets/{sheet}', [SheetController::class, 'update'])->name('sheets.update');
 

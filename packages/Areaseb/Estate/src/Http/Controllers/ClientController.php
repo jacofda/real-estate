@@ -337,7 +337,7 @@ class ClientController extends Controller
         $requests = $client->requests()->with('client', 'property')->get();
         $ownerships = $client->ownerships()->with('client', 'property')->get();
         $views = $client->views()->with('client', 'property')->get();
-        $sheets = $client->sheets()->with('client', 'property')->get();
+        $sheets = $client->sheets()->with('client')->get();
 
         $properties = collect();
         if($client->primary->user_id)
