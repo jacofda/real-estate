@@ -63,8 +63,16 @@
 
     <p class="text">Ai sensi dell’art. 13 del D Lgs: 196/2003 autorizzo il trattamento dei miei dati personali al fine di propormi degli immobili come da me richiesti.</p>
     <div class="text">
-        <span class="float-left">Lugo <span class="data">...</span></span>
-        <span class="float-right">FIRMA <span class="data">...</span></span>
+        <div class="float-left">
+            <p>Luogo</p>
+            <p class="data">...</p>
+        </div>
+        <div class="float-right">
+            <p>FIRMA</p>
+            @if ($sign)
+                <p><img src="{{ $sign }}" style="width: 200px;" /></p>
+            @endif
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>

@@ -11,7 +11,7 @@ class SheetPDFGenerator
     {
         return PDF::loadView('estate::pdf.sheets.sheet', [
             'sheet' => $sheet,
-            'preview' => true
+            'sign' => false
         ]);
     }
 
