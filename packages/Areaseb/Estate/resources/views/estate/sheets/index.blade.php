@@ -35,9 +35,11 @@
                                             @if ($sheet->signed)
                                                 <a href="{{ route('sheets.download', ['uuid' => $sheet->uuid] )}}" class="btn btn-xs btn-info" download><i class="fa fa-download"></i></a>
                                             @else
-                                            <a href="{{ route('sheets.sign', ['uuid' => $sheet->uuid] )}}" class="btn btn-xs btn-info"><i class="fa fa-signature"></i></a>
+                                                <a href="{{ route('sheets.sign', ['uuid' => $sheet->uuid] )}}" class="btn btn-xs btn-info"><i class="fa fa-signature"></i></a>
                                             @endif
-                                            <a href="{{ route('sheets.edit', $sheet->id )}}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
+                                            @if (!$sheet->signed)
+                                                <a href="{{ route('sheets.edit', $sheet->id )}}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
+                                            @endif
                                             <a href="#" data-id="{{ $sheet->id }}" class="btn btn-xs btn-danger dlt"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
