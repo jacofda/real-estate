@@ -63,7 +63,8 @@ class SheetController extends Controller
 
     public function destroy(Sheet $sheet)
     {
-        //
+        $sheet->delete();
+        return 'done';
     }
 
     public function edit(Sheet $sheet)

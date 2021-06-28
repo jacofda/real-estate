@@ -55,7 +55,7 @@
 @stop
 
 
-{{-- @section('scripts')
+@section('scripts')
 <script>
     $('p.showAll').on('dblclick', function(){
         $(this).toggleClass('limited-text');
@@ -80,11 +80,11 @@
             cancelButtonText: 'Annulla!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(baseURL+'views/'+id, {_token:token}).then(response => el.remove());
+                axios.delete(baseURL+'sheets/'+id, {_token:token}).then(response => el.remove());
             }
         });
 
     });
 
 </script>
-@stop --}}
+@stop

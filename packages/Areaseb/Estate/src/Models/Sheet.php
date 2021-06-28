@@ -39,6 +39,22 @@ class Sheet extends Model
     }
 
     /**
+     * Delete the model from the database.
+     *
+     * @return bool|null
+     *
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        $this->views->each(function ($view) {
+            $view->sheet()->dissociate();
+            $view->save();
+        });
+        parent::delete();
+    }
+
+    /**
      * --------
      * RELATIONSHIPS
      * --------
