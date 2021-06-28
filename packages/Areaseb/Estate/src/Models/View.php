@@ -18,4 +18,14 @@ class View extends Primitive
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function sheet()
+    {
+        return $this->belongsTo(Sheet::class, 'property_sheet_id');
+    }
+
+    public function scopeWithoutSheet($query)
+    {
+        return $query->doesntHave('sheet');
+    }
 }
