@@ -130,12 +130,20 @@ class SheetController extends Controller
     }
 
     /**
+     * Return views by the given client
+     */
+    public function apiViewsIndex(Client $client)
+    {
+        return $this->getViewsByClient($client);
+    }
+
+    /**
      * Create options for views
      */
     protected function getViewsByClient(Client $client = null)
     {
         $views = $client
-            ? View::where('client_id', $client->id)->get()
+            ? View::where('client_id', $client->id)->withoutSheet()->get()
             : collect([]);
 
         $views = $views->map(function ($view) {

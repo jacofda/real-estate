@@ -245,3 +245,5 @@ Route::get('sheets', [SheetController::class, 'index'])->name('sheets.index');
 Route::delete('sheets/{sheet}', [SheetController::class, 'destroy'])->name('sheets.delete');
 Route::get('sheets/{sheet}/edit', [SheetController::class, 'edit'])->name('sheets.edit');
 Route::put('sheets/{sheet}', [SheetController::class, 'update'])->name('sheets.update');
+
+Route::get('api/sheets/client/{client}/views', [SheetController::class, 'apiViewsIndex']);

@@ -99,21 +99,55 @@
     $('#form').removeClass('d-none')
 @endif
 
-    $('#client').select2({width:'100%', placeholder:"Seleziona o crea contatto"})
-    $('#views').select2({width:'100%', placeholder:"Seleziona o crea visita"})
+    function updateViewsOptions(client_id, callback) {
+        $.get(`/api/sheets/client/${client_id}/views`, function (response) {
+            let data = [];
+            for (const key in response) {
+                data.push({
+                    id: key,
+                    text: response[key],
+                })
+            }
+
+            initViewsSelect2(data)
+
+            // Let's call the callback
+            callback()
+        });
+    }
+
+    function initClientSelect2(data = null) {
+        $('#client').select2({width:'100%', placeholder:"Seleziona o crea contatto"})
+    }
+
+    function initViewsSelect2(data = null) {
+        let options = {
+            width: '100%',
+            placeholder: "Seleziona o crea visita"
+        }
+
+        // If data is passed
+        if (data) {
+            options['data'] = data;
+        }
+
+        $('#views').select2(options)
+    }
 
     $('#client').on('change', function() {
         let $this = $(this)
 
-        if ($this.val() != 'new') {
+        if ($this.val() == 'new') {
             // Open form to create client
+            return
         }
 
         // Let's save the client_id
+        // and update the view options
         $("input[name='client_id']").val($this.val())
-
-        // Open the form
-        $('#form').removeClass('d-none');
+        updateViewsOptions($this.val(), function () {
+            $('#form').removeClass('d-none');
+        });
     })
 
     $('#add-view').on('click', function () {
@@ -121,6 +155,7 @@
 
         if (data[0].id == 'new') {
             // Open form to create a new view
+            return
         } else {
             let view = $(`<tr class="view">
                             <td>
@@ -156,5 +191,8 @@
     $('#submit-sheet').on('click', function () {
         $('#form form').submit()
     })
+
+    initClientSelect2()
+    initViewsSelect2()
 </script>
 @stop
