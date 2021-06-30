@@ -27,7 +27,7 @@ class StoreSheetRequest extends FormRequest
     {
         $clientId = $this->input('client_id');
         return [
-            'client_id' => ['required', Rule::exists('users', 'id')],
+            'client_id' => ['required', Rule::exists('clients', 'id')],
             'view' => ['required', 'min:1'],
             'view.*' => [
                 Rule::exists('property_views', 'id')
