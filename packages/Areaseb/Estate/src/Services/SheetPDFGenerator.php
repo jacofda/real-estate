@@ -41,7 +41,6 @@ class SheetPDFGenerator
             ->setOption('header-html', $headerUrl)
             ->setOption('footer-html', $footerUrl)
             ->setOption('encoding', 'UTF-8');
-            ;
 
         return $pdf;
     }

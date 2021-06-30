@@ -44,37 +44,6 @@
         .float-right {
             float: right;
         }
-
-
-
-        /* .bold {
-            font-weight: bold;
-        }
-
-        .title {
-            text-align: center;
-            text-transform: uppercase;
-            text-decoration: underline;
-        }
-        .date {
-            font-size: 14pt;
-        }
-
-        .data {
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .text {
-            font-size: 12pt;
-        }
-
-        .float-left {
-            float: left;
-        }
-        .float-right {
-            float: right;
-        } */
     </style>
 </head>
 <body>
