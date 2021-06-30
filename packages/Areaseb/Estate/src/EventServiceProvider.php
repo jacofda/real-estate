@@ -2,7 +2,9 @@
 
 namespace Areaseb\Estate;
 
+use Areaseb\Estate\Events\PrivacyCreated;
 use Areaseb\Estate\Events\SheetCreated;
+use Areaseb\Estate\Listeners\SendPrivacyToSignEmail;
 use Areaseb\Estate\Listeners\SendSheetToSignEmail;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -17,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
         SheetCreated::class => [
             SendSheetToSignEmail::class,
         ],
+        PrivacyCreated::class => [
+            SendPrivacyToSignEmail::class
+        ]
     ];
 
     /**
