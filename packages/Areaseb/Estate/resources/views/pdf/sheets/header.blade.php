@@ -46,7 +46,7 @@
         }
 
         .subtitle .separator {
-            margin: 0 9px;
+            margin: 0 16px;
         }
 
         .headquarters {
