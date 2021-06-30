@@ -77,7 +77,7 @@
                     </div>
 
                     <div id="form" class="d-none">
-                        <form action="{{ route('sheets.store') }}" method="PUT" autocomplete="off" id="sheet-new">
+                        <form action="{{ route('sheets.store') }}" method="POST" autocomplete="off" id="sheet-new">
                             {!! Form::hidden('previous_url', url()->previous()) !!}
                             {!! Form::hidden('client_id', request('client_id')) !!}
                             @csrf
@@ -179,8 +179,8 @@
             let data = [];
             for (const key in response) {
                 data.push({
-                    id: key,
-                    text: response[key],
+                    id: response[key].id,
+                    text: response[key].name
                 })
             }
 
@@ -293,7 +293,8 @@
         }
     })
 
-    $('#submit-sheet').on('click', function () {
+    $('#submit-sheet').on('click', function (e) {
+        e.preventDefault()
         $('#sheet-new').submit()
     })
 
