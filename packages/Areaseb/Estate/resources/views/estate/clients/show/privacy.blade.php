@@ -1,12 +1,12 @@
 @php
-    $hide = $client->sheets->isEmpty();
+    $hide = $client->privacy->isEmpty();
 @endphp
 
 
 <div class="card @if($hide) collapsed-card @endif">
     <div class="card-header bg-Privacy">
         <h3 class="card-title l15">
-            <a title="visualizza visite" href="#" class="updateDataTable text-white" data-search="Privacy"><u>Privacy</u></a>
+            <a title="visualizza privacy" href="#" class="updateDataTable text-white" data-search="Privacy"><u>Privacy</u></a>
         </h3>
 
         <div class="card-tools">
@@ -22,7 +22,7 @@
                 <table class="table table-sm mb-0 firstRowNoBorder">
                     <tbody>
                         <tr>
-                            <td>Tot:{{ $client->privacy ? '1' : '0' }}</td>
+                            <td>Tot:{{ $client->privacy->count() }}</td>
                         </tr>
                         {{-- @foreach ($client->views()->latest()->get() as $view)
                             <tr>

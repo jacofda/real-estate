@@ -338,6 +338,7 @@ class ClientController extends Controller
         $ownerships = $client->ownerships()->with('client', 'property')->get();
         $views = $client->views()->with('client', 'property')->get();
         $sheets = $client->sheets()->with('client')->get();
+        $privacy = $client->privacy()->with('client')->get();
 
         $properties = collect();
         if($client->primary->user_id)
@@ -351,7 +352,7 @@ class ClientController extends Controller
             }
         }
 
-        $collection = $collection->merge($requests)->merge($ownerships)->merge($logs)->merge($views)->merge($properties)->merge($sheets);
+        $collection = $collection->merge($requests)->merge($ownerships)->merge($logs)->merge($views)->merge($properties)->merge($sheets)->merge($privacy);
         return $collection->sortByDesc('created_at');
     }
 

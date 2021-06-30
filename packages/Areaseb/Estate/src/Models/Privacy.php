@@ -82,7 +82,7 @@ class Privacy extends Model
     }
 
     public function getTransClassAttribute() {
-        return 'Foglio di visita';
+        return 'Privacy';
     }
 
     public function getDirectoryAttribute() {
