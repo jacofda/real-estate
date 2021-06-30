@@ -200,7 +200,7 @@ Route::group(['prefix' => 'api/media'], function () {
 //PROPERTIES
 use Areaseb\Estate\Http\Controllers\{PropertyController, PropertyHelperController, RequestController, FeatureController};
 use Areaseb\Estate\Http\Controllers\{BookingController, OwnershipController, TagController, ViewController};
-use Areaseb\Estate\Http\Controllers\{ClientLogController, PoiController, OfferController, SheetController};
+use Areaseb\Estate\Http\Controllers\{ClientLogController, PoiController, OfferController, PrivacyController, SheetController};
 
 
 Route::get('property-export', [PropertyController::class, 'export']);
@@ -248,3 +248,8 @@ Route::put('sheets/{sheet}', [SheetController::class, 'update'])->name('sheets.u
 
 Route::get('api/sheets/client/{client}/views', [SheetController::class, 'apiViewsIndex']);
 Route::post('api/sheets/views', [SheetController::class, 'apiViewsStore']);
+
+Route::get('privacy/create', [PrivacyController::class, 'create'])->name('privacy.create');
+Route::post('privacy', [PrivacyController::class, 'store'])->name('privacy.store');
+Route::get('privacyindex', [PrivacyController::class, 'index'])->name('privacy.index');
+Route::delete('privacy/{privacy}', [PrivacyController::class, 'destroy'])->name('privacy.destroy');

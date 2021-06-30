@@ -118,5 +118,10 @@ class EstateServiceProvider extends ServiceProvider
             'driver' => 'local',
             'root' => storage_path('app/sheets'),
         ];
+
+        $this->app['config']['filesystems.disks.privacy'] = [
+            'driver' => 'local',
+            'root' => storage_path('app/privacy'),
+        ];
     }
 }
