@@ -45,6 +45,13 @@
     </a>
 </li>
 
+<li class="nav-item">
+    <a href="{{route('privacy.index')}}" class="nav-link" >
+        <i class="nav-icon far fa-eye"></i>
+        <p>Privacy</p>
+    </a>
+</li>
+
 
 <li class="nav-header text-uppercase">Immobili</li>
 <li class="nav-item">
