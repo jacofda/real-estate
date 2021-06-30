@@ -22,7 +22,7 @@
                                     <th>Richiedente</th>
                                     <th>Data</th>
                                     <th>Firmato</th>
-                                    <th data-sortable="false" style="width:95px;"></th>
+                                    <th data-sortable="false" style="width:120px;"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,6 +36,7 @@
                                                 <a href="{{ route('sheets.download', ['uuid' => $sheet->uuid] )}}" class="btn btn-xs btn-info" download><i class="fa fa-download"></i></a>
                                             @else
                                                 <a href="{{ route('sheets.sign', ['uuid' => $sheet->uuid] )}}" class="btn btn-xs btn-info"><i class="fa fa-signature"></i></a>
+                                                <a href="{{ route('sheets.sign', ['uuid' => $sheet->uuid] )}}" class="btn btn-xs btn-info copy"><i class="fa fa-copy"></i></a>
                                             @endif
                                             @if (!$sheet->signed)
                                                 <a href="{{ route('sheets.edit', $sheet->id )}}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i></a>
@@ -85,6 +86,21 @@
         });
 
     });
+
+    $('#table').on('click', 'a.copy', function (e) {
+        e.preventDefault()
+
+        let link = $(this).attr('href')
+        let $temp = $('<input>')
+
+        $('body').append($temp);
+        $temp.val(link).select();
+        document.execCommand("copy");
+
+        $temp.remove();
+
+        alert('Link copiato');
+    })
 
 </script>
 @stop
