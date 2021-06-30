@@ -1,6 +1,6 @@
 @extends('estate::layouts.app')
 
-@include('estate::layouts.elements.title', ['title' => 'Fogli di visita'])
+@include('estate::layouts.elements.title', ['title' => 'Privacy'])
 
 @section('content')
     <div class="row">
@@ -9,7 +9,7 @@
 
                 <div class="card-header bg-secondary-light">
                     <div class="card-tools">
-                        <a href="{{route('sheets.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuovo Foglio di visita</a>
+                        <a href="{{route('sheets.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuova Privacy</a>
                     </div>
                 </div>
 

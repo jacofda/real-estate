@@ -1,10 +1,10 @@
 @extends('estate::layouts.app')
 
 @section('breadcrumbs')
-    <li class="breadcrumb-item"><a href="{{config('app.url')}}sheets">Fogli di visita</a></li>
+    <li class="breadcrumb-item"><a href="{{config('app.url')}}sheets">Privacy</a></li>
 @stop
 
-@include('estate::layouts.elements.title', ['title' => 'Crea Foglio di visita'])
+@include('estate::layouts.elements.title', ['title' => 'Crea Privacy'])
 
 @section('css')
     <style>
@@ -23,7 +23,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Nuovo foglio di visita</h3>
+                    <h3 class="card-title">Nuovo Privacy</h3>
                 </div>
                 <div class="card-body">
 
