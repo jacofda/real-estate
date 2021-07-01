@@ -100,7 +100,7 @@ class SheetController extends Controller
 
     public function sign(SignSheetRequest $request, $uuid)
     {
-        $sheet = Sheet::uuid($uuid)/*->notSigned()*/->first();
+        $sheet = Sheet::uuid($uuid)->notSigned()->first();
         if (!$sheet) {
             return abort(404);
         }

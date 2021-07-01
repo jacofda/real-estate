@@ -69,7 +69,7 @@ class PrivacyController extends Controller
 
     public function sign(SignPrivacyRequest $request, $uuid)
     {
-        $privacy = Privacy::uuid($uuid)/*->notSigned()*/->first();
+        $privacy = Privacy::uuid($uuid)->notSigned()->first();
         if (!$privacy) {
             return abort(404);
         }
