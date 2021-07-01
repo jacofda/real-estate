@@ -34,7 +34,7 @@ class PrivacyController extends Controller
 
     public function create()
     {
-        $clients = ['' => '', 'new' => 'Nuovo Contatto'] + Client::pluck('rag_soc' ,'id')->toArray();
+        $clients = ['' => '', 'new' => 'Nuovo Contatto'] + Client::withoutPrivacy()->pluck('rag_soc' ,'id')->toArray();
 
         return view('estate::estate.privacy.create', [
             'clients' => $clients,

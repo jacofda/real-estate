@@ -2,6 +2,7 @@
 
 namespace Areaseb\Estate\Http\Requests;
 
+use Areaseb\Estate\Rules\OnePrivacyPerUser;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -26,7 +27,11 @@ class StorePrivacyRequest extends FormRequest
     public function rules()
     {
         return [
-            'client_id' => ['required', Rule::exists('users', 'id')]
+            'client_id' => [
+                'required',
+                Rule::exists('clients', 'id'),
+                new OnePrivacyPerUser()
+            ]
         ];
     }
 

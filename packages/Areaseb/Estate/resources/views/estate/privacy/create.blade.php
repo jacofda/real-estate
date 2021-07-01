@@ -23,7 +23,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Nuovo Privacy</h3>
+                    <h3 class="card-title">Genera Privacy</h3>
                 </div>
                 <div class="card-body">
 

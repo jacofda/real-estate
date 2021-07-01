@@ -258,6 +258,11 @@ class Client extends Primitive
         $query = $query->where('sector_id', $value);
     }
 
+    public function scopeWithoutPrivacy($query)
+    {
+        return $query->doesntHave('privacy');
+    }
+
 //FILTERS
     public static function filter($data)
     {

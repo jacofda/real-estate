@@ -9,7 +9,7 @@
 
                 <div class="card-header bg-secondary-light">
                     <div class="card-tools">
-                        <a href="{{route('sheets.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuova Privacy</a>
+                        <a href="{{route('privacy.create')}}" class="btn btn-primary"><i class="fa fa-plus"></i> Nuova Privacy</a>
                     </div>
                 </div>
 
