@@ -2,6 +2,7 @@
 
 namespace Areaseb\Estate\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -10,6 +11,7 @@ class Sheet extends Model
     protected $table = 'property_sheets';
     protected $fillable = [
         'client_id',
+        'user_id',
         'signed',
         'signed_at'
     ];
@@ -68,6 +70,11 @@ class Sheet extends Model
     public function views()
     {
         return $this->hasMany(View::class, 'property_sheet_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**

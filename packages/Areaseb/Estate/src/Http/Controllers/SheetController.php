@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 class SheetController extends Controller
 {
@@ -211,6 +211,7 @@ class SheetController extends Controller
     protected function createNewSheet(Request $request)
     {
         $sheet = new Sheet();
+        $sheet->user()->associate(Auth::user());
         return $this->updateSheet($sheet, $request);
     }
 
